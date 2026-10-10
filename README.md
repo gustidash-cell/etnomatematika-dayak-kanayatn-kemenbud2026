@@ -10,7 +10,7 @@ Repository resmi operasional lapangan, alur pengumpulan data etnografis, dan pak
 
 * **Ketua Tim Peneliti:** Dr. Siti Suprihatiningsih, M.Pd.
 * **Lokus Penelitian:** Rumah Radakng Saham, Desa Saham, Kecamatan Sengah Temila, Kabupaten Landak, Kalimantan Barat.
-* **Proposal Resmi Terverifikasi:** [`Proposal.pdf`](./Proposal.pdf)
+* **Program:** Program Pemanfaatan Hasil Kelola Dana Abadi Kebudayaan (Dana Indonesiana) Tahun 2026.
 
 ---
 
@@ -82,10 +82,9 @@ Repository resmi operasional lapangan, alur pengumpulan data etnografis, dan pak
 
 ```
 d:\Penelitian 2026\Kemenbud\
-├── index.html                   # Portal panduan interaktif UI/UX Pro Max
+├── index.html                   # Portal panduan lapangan interaktif SPA (UI/UX Pro Max)
 ├── DESIGN.md                    # Kontrak token desain sistem OpenDesign
-├── Proposal.pdf                 # Dokumen resmi proposal yang didanai Kemenbud 2026
-├── README.md                    # Dokumentasi utama proyek
+├── README.md                    # Dokumentasi utama repository
 ├── .gitignore                   # Konfigurasi filter berkas Git
 └── Instrumen Pendukung/         # Paket dokumen instrumen (.docx & .md)
     ├── Instrumen_01_Pedoman_Wawancara_Mendalam_Bishop.docx
