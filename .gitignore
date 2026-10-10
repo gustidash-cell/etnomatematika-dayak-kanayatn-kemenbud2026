@@ -1,0 +1,21 @@
+# OS & IDE metadata
+.DS_Store
+Thumbs.db
+desktop.ini
+*.tmp
+*.log
+.vscode/
+.idea/
+
+# Large media files (if raw 4K videos added later)
+*.mp4
+*.mov
+*.zip
+*.tar.gz
+!*.png
+!*.jpeg
+!*.jpg
+!*.pdf
+!*.docx
+!*.md
+!*.html
