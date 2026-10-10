@@ -814,6 +814,56 @@
       color: var(--text-inverse);
     }
 
+    /* KARTU PERTANYAAN PEMANTIK PEWAWANCARA */
+    .field-prompt-card {
+      background: var(--surface-raised);
+      border: 1px solid var(--border);
+      border-left: 4px solid var(--accent);
+      border-radius: var(--radius-sm);
+      padding: 10px 14px;
+      margin: 6px 0 10px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 5px;
+      transition: all var(--duration-fast);
+    }
+
+    [data-theme="light"] .field-prompt-card {
+      background: #fffbeb;
+      border: 1px solid #fef3c7;
+      border-left: 4.5px solid #d97706;
+      box-shadow: 0 1px 2px rgba(217, 119, 6, 0.05);
+    }
+
+    .field-prompt-header {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-family: var(--font-mono);
+      font-weight: 700;
+      color: var(--accent);
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    [data-theme="light"] .field-prompt-header {
+      color: #b45309;
+    }
+
+    .field-prompt-text {
+      font-size: 13.5px;
+      font-style: italic;
+      color: var(--text-primary);
+      line-height: 1.55;
+      margin: 0;
+    }
+
+    [data-theme="light"] .field-prompt-text {
+      color: #3b2003;
+      font-weight: 500;
+    }
+
     .form-interactive-table {
       width: 100%;
       border-collapse: collapse;
@@ -1249,9 +1299,24 @@
         page-break-after: avoid;
         break-after: avoid;
       }
-      .form-field, .form-grid-2, .form-grid-3, .form-interactive-table {
+      .form-field, .form-grid-2, .form-grid-3, .form-interactive-table, .field-prompt-card {
         page-break-inside: avoid !important;
         break-inside: avoid !important;
+      }
+      .field-prompt-card {
+        background: #f8fafc !important;
+        border: 1px solid #64748b !important;
+        border-left: 3.5px solid #000000 !important;
+        padding: 5px 8px !important;
+        margin: 3px 0 6px 0 !important;
+      }
+      .field-prompt-header {
+        color: #000000 !important;
+        font-size: 8pt !important;
+      }
+      .field-prompt-text {
+        color: #000000 !important;
+        font-size: 9pt !important;
       }
       .form-input, .form-textarea, .form-select {
         border: 1px solid #555555 !important;
@@ -1927,7 +1992,7 @@
       }
     ];
 
-    // 2. DATA 8 INSTRUMEN BESERTA SKEMA FORMULIR
+    // 2. DATA 8 INSTRUMEN BESERTA SKEMA FORMULIR DENGAN PERTANYAAN PEMANTIK
     const instrumentsData = [
       {
         id: "INST-01-ETNO",
@@ -1939,12 +2004,48 @@
         file: "Instrumen Pendukung/Instrumen_01_Pedoman_Wawancara_Mendalam_Bishop.docx",
         details: "Instrumen ini dirancang semi-terstruktur. Pewawancara menggali praktik hidup sehari-hari: penentuan jumlah benih per lubang tugal, pembacaan rasi Bintang Karang, satuan solok/gantang, hingga mitos sakral Pu'un Padi.",
         formFields: [
-          { id: "f_counting", label: "1. Counting (Sistem Bilangan & Hitungan Benih)", type: "textarea", placeholder: "Catat sebutan angka Kanayatn, hitungan benih per lubang tugal (5-7 biji), ikatan rumpun..." },
-          { id: "f_locating", label: "2. Locating (Astronomi Bintang & Tata Ruang)", type: "textarea", placeholder: "Catat posisi rasi Bintang Karang (Orion) / Bintang Tiga, arah hadap ladang bukit, posisi dango..." },
-          { id: "f_measuring", label: "3. Measuring (Metrologi Tubuh & Takaran Volume)", type: "textarea", placeholder: "Catat satuan jengkal, depa, hasta, takaran solok, gantang, kaleng, taksiran tumpak..." },
-          { id: "f_designing", label: "4. Designing (Geometri Tugal, Lanjung, & Arsitektur)", type: "textarea", placeholder: "Catat bentuk silinder kerucut tugal, transisi prisma-silinder lanjung, tiang anti-tikus dango..." },
-          { id: "f_playing", label: "5. Playing (Permainan Tradisional & Logika Musiman)", type: "textarea", placeholder: "Catat permainan rakyat penjaga burung di dango, teka-teki logika, adu strategi..." },
-          { id: "f_explaining", label: "6. Explaining (Mitos Pu'un Padi, Pamali, & Babari)", type: "textarea", placeholder: "Catat mitos asal-usul padi Ne' Baruakng Kulup, aturan pamali/pantang, kesetaraan waktu Babari..." }
+          {
+            id: "f_counting",
+            label: "1. Counting (Sistem Bilangan & Hitungan Benih)",
+            prompt: "Apa saja sebutan bilangan dalam bahasa Dayak Kanayatn dari satuan (sa, dua, talu, ampat, lima, anam, tujuh, lapan, sembilan, sapuluh) hingga ratusan? Mengapa saat menugal (nandur) dimasukkan tepat 5–7 butir benih ke dalam setiap lubang? Bagaimana cara menghitung ikatan rumpun padi dan taksiran hasil panen?",
+            type: "textarea",
+            placeholder: "Catat sebutan angka lokal, filosofi jumlah benih per lubang, hitungan ikatan rumpun..."
+          },
+          {
+            id: "f_locating",
+            label: "2. Locating (Astronomi Bintang & Navigasi Spasial)",
+            prompt: "Bagaimana para tetua mengamati peredaran rasi Bintang Karang (Orion) dan Bintang Tiga / Bintang Banyak (Pleiades) sebelum mulai membuka ladang? Kapan posisi bintang menandakan tanah telah siap ditugal? Bagaimana menentukan arah hadap ladang lereng bukit, batas ulayat keluarga, dan tata letak dango?",
+            type: "textarea",
+            placeholder: "Catat posisi rasi bintang penanda, orientasi bukit/sungai, pembagian batas ulayat..."
+          },
+          {
+            id: "f_measuring",
+            label: "3. Measuring (Metrologi Tubuh & Takaran Volume)",
+            prompt: "Satuan ukuran tubuh apa saja yang digunakan untuk mengukur jarak tanam atau konstruksi dango (jengkal, hasta, depa, langkah)? Wadah apa yang dipakai untuk menakar benih dan gabah (solok bambu, gantang, blek/kaleng)? Bagaimana cara menaksir luas ladang (tumpak/piring)?",
+            type: "textarea",
+            placeholder: "Catat satuan tubuh, kapasitas volume wadah lokal dalam kg/liter, taksiran luas tumpak..."
+          },
+          {
+            id: "f_designing",
+            label: "4. Designing (Geometri Tugal, Lanjung, & Arsitektur Dango)",
+            prompt: "Bagaimana cara membuat kayu tugal, mengapa ujungnya dibentuk kerucut tajam dan diberi cincin batas kedalaman? Mengapa keranjang lanjung alasnya bujursangkar tetapi bibir atasnya bundar (transisi geometri)? Mengapa tiang dango diberi penghalang bundar anti-tikus?",
+            type: "textarea",
+            placeholder: "Catat geometri tugal, morfometri lanjung/takin, prinsip arsitektur lumbung padi..."
+          },
+          {
+            id: "f_playing",
+            label: "5. Playing (Permainan Tradisional & Logika Musiman)",
+            prompt: "Permainan rakyat atau tebak-tebakan apa yang dimainkan anak-anak dan pemuda saat menunggu padi di dango (menjaga burung/hama)? Apakah ada permainan adu strategi, ketangkasan membidik, atau teka-teki logika yang berkaitan dengan pertanian?",
+            type: "textarea",
+            placeholder: "Catat nama permainan tradisional, aturan main, strategi logika yang diterapkan..."
+          },
+          {
+            id: "f_explaining",
+            label: "6. Explaining (Mitos Pu'un Padi, Pantang Adat, & Babari)",
+            prompt: "Bagaimana cerita lisan mengenai asal mula benih padi (kisah Pu'un Padi / Ne' Baruakng Kulup)? Pantang larang (pamali) apa yang wajib ditaati saat padi bunting hingga panen? Bagaimana aturan rotasi gotong royong Babari agar pertukaran hari kerja antar-keluarga adil?",
+            type: "textarea",
+            placeholder: "Catat mitos asal benih, daftar pamali dan sanksinya, asas resiprositas Babari..."
+          }
         ]
       },
       {
@@ -1957,9 +2058,37 @@
         file: "Instrumen Pendukung/Instrumen_02_Lembar_Observasi_Etnografis_Siklus_Padi.docx",
         details: "Mencakup panduan pengamatan untuk 9 fase: Ngalantak/Milih Ulayat, Nebas, Nebang, Nunu/Bakar Lahan, Nugal/Tanam, Mabau/Siang Rumput, Ngetam/Panen, Naik Dango, dan Gotong Royong Babari.",
         formFields: [
-          { id: "f_tahap_ladang", label: "Tahapan Siklus Ladang yang Diamati", type: "select", options: ["1. Ngalantak / Milih Ulayat & Bintang", "2. Nebas (Menebas Semak)", "3. Nebang (Menebang Pohon)", "4. Nunu / Nguru (Membakar Lahan)", "5. Nugal / Nandur (Menanam Benih)", "6. Mabau / Ngiut (Menyiang Rumput)", "7. Ngetam / Ngayau (Memanen Padi)", "8. Nurutnkan Padi / Naik Dango", "9. Babari (Gotong Royong Komunal)"] },
-          { id: "f_catatan_deskriptif", label: "Catatan Deskriptif Faktual (Apa yang Dilihat & Didengar)", type: "textarea", placeholder: "Deskripsikan gerakan fisik petani, interaksi, perkataan, posisi alat, ritus..." },
-          { id: "f_memo_analitis", label: "Memo Analitis Etnomatematika (Konsep Bishop & D'Ambrosio)", type: "textarea", placeholder: "Analisis konsep matematika implisit: simetri, estimasi waktu, sudut, proporsi..." }
+          {
+            id: "f_tahap_ladang",
+            label: "Tahapan Siklus Ladang yang Sedang Diamati",
+            prompt: "Tentukan tahapan siklus bertani padi yang sedang berlangsung di ladang Saham saat observasi dilakukan hari ini.",
+            type: "select",
+            options: [
+              "1. Ngalantak / Milih Ulayat & Ngamat Bintang",
+              "2. Nebas (Menebas Semak Belukar)",
+              "3. Nebang (Menebang Pohon Kayu Besar)",
+              "4. Nunu / Nguru (Membakar Lahan & Sekat Ampas)",
+              "5. Nugal / Nandur (Menanam Benih Bersama)",
+              "6. Mabau / Ngiut (Menyiang Rumput & Gulma)",
+              "7. Ngetam / Ngayau (Memanen Padi dgn Ketaman)",
+              "8. Nurutnkan Padi / Naik Dango (Lumbung)",
+              "9. Babari (Gotong Royong Giliran Komunal)"
+            ]
+          },
+          {
+            id: "f_catatan_deskriptif",
+            label: "Catatan Deskriptif Faktual (Apa yang Dilihat & Didengar)",
+            prompt: "Catat fakta objektif: Berapa petani yang bekerja? Bagaimana posisi alat, ritme gerakan tangan/kaki, sudut tebas, kata-kata yang diucapkan, serta benda sesajen ritual yang hadir di ladang?",
+            type: "textarea",
+            placeholder: "Deskripsikan secara kronologis aksi fisik petani, bahasa verbal, ritual..."
+          },
+          {
+            id: "f_memo_analitis",
+            label: "Memo Analitis Etnomatematika (Konsep Bishop & D'Ambrosio)",
+            prompt: "Konsep matematika apa yang tercermin dalam aksi tadi? (Misal: barisan keteraturan jarak lubang, kecepatan menugal per menit, sudut kemiringan lereng, estimasi luas sekat bakar ampas).",
+            type: "textarea",
+            placeholder: "Analisis konsep matematika implisit: simetri, estimasi, rasio, geometri..."
+          }
         ]
       },
       {
@@ -1972,9 +2101,27 @@
         file: "Instrumen Pendukung/Instrumen_03_Inventarisasi_Metrologi_dan_Geometri_Artefak.docx",
         details: "Mewajibkan peneliti mengukur minimal 3-5 sampel nyata per satuan ukur tradisional menggunakan timbangan gram analitik dan caliper digital. Dilengkapi lembar akuisisi artefak untuk pameran diseminasi.",
         formFields: [
-          { id: "f_nama_artefak", label: "Nama Artefak / Satuan yang Diukur", type: "input", placeholder: "Contoh: Kayu Tugal Ulin / Keranjang Lanjung / Solok Bambu" },
-          { id: "f_dimensi_fisik", label: "Dimensi Fisik Terukur (Panjang / Diameter / Massa)", type: "input", placeholder: "Contoh: Tinggi 162 cm, Diameter 3.4 cm, Massa 420 gram" },
-          { id: "f_analisis_geometri", label: "Analisis Geometris & Rumus Matematika Relevan", type: "textarea", placeholder: "Bentuk: Tabung silinder + kerucut ujung runcing. Sudut taji: 35 derajat..." }
+          {
+            id: "f_nama_artefak",
+            label: "Nama Artefak / Satuan Lokal yang Diuji",
+            prompt: "Tanyakan dan catat: 'Apa nama asli artefak atau satuan takaran ini dalam bahasa Kanayatn? Dari bahan apa dibuat dan siapa pembuatnya?' (Contoh: Tugal Ulin, Lanjung Rotan, Solok Bambu).",
+            type: "input",
+            placeholder: "Contoh: Kayu Tugal Ulin / Keranjang Lanjung / Solok Bambu"
+          },
+          {
+            id: "f_dimensi_fisik",
+            label: "Dimensi Fisik Terukur (Meteran & Timbangan Digital)",
+            prompt: "Lakukan pengukuran fisik riil: Berapa panjang (cm), lebar (cm), tinggi (cm), diameter (cm), sudut kemiringan (°), kapasitas volume (mL/L), dan massa berat kering (gram/kg)?",
+            type: "input",
+            placeholder: "Contoh: Panjang 162 cm, Diameter 3.4 cm, Sudut lancip 32°, Massa 450 gr"
+          },
+          {
+            id: "f_analisis_geometri",
+            label: "Analisis Geometris & Rumus Matematika Modern",
+            prompt: "Bangun ruang/datar modern apa yang mendekati artefak ini? Rumus matematika apa yang relevan untuk menghitung kapasitas simpan, luas anyaman, atau kestabilan titik beratnya?",
+            type: "textarea",
+            placeholder: "Bentuk: Tabung silinder + kerucut ujung runcing. Rumus volume V = πr²h + ⅓πr²t..."
+          }
         ]
       },
       {
@@ -1987,9 +2134,32 @@
         file: "Instrumen Pendukung/Instrumen_04_Panduan_FGD_dan_Validasi_Komunitas.docx",
         details: "Memuat alur diskusi 90–120 menit per kelompok. Protokol khusus pada Bulan ke-8 menghadirkan Timanggong, Pasirah, dan Baliatn untuk memverifikasi draf monograf sebelum diterbitkan.",
         formFields: [
-          { id: "f_kelompok_fgd", label: "Kelompok FGD / Sidang", type: "select", options: ["FGD 1: Kelompok Tetua Adat (≥50 Tahun)", "FGD 2: Kelompok Petani Aktif (30-50 Tahun)", "FGD 3: Kelompok Pemuda Adat (17-30 Tahun)", "FGD 4: Sidang Validasi Komunitas (Member Checking Bulan 8)"] },
-          { id: "f_dinamika_diskusi", label: "Poin-Poin Utama Dinamika Diskusi", type: "textarea", placeholder: "Catat pandangan peserta, konsensus kelompok, perdebatan makna istilah..." },
-          { id: "f_koreksi_adat", label: "Catatan Koreksi / Masukan Para Tokoh Adat", type: "textarea", placeholder: "Catat koreksi ejaan bahasa Kanayatn atau batas pantang yang harus dipatuhi..." }
+          {
+            id: "f_kelompok_fgd",
+            label: "Kelompok Stratifikasi Usia FGD / Sidang Validasi",
+            prompt: "Tentukan kelompok diskusi yang sedang difasilitasi dalam forum Rumah Radakng Saham saat ini.",
+            type: "select",
+            options: [
+              "FGD 1: Kelompok Tetua Adat (≥50 Tahun - Kosmologi & Ritus)",
+              "FGD 2: Kelompok Petani Aktif (30-50 Tahun - Kalkulasi & Pasar)",
+              "FGD 3: Kelompok Pemuda Adat (17-30 Tahun - Transmisi & Sekolah)",
+              "FGD 4: Sidang Validasi Komunitas (Member Checking Bulan 8)"
+            ]
+          },
+          {
+            id: "f_dinamika_diskusi",
+            label: "Poin-Poin Dinamika & Silang Pendapat Diskusi",
+            prompt: "Pertanyaan pemantik moderator: 'Apakah penanda rasi bintang saat ini masih cocok dengan musim hujan? Bagaimana bapak/ibu memperhitungkan modal dan hasil panen? Apakah konsep ini menarik jika diajarkan di sekolah?' Catat respons dan perdebatannya.",
+            type: "textarea",
+            placeholder: "Catat konsensus kelompok, perdebatan makna istilah, adopsi satuan modern..."
+          },
+          {
+            id: "f_koreksi_adat",
+            label: "Catatan Koreksi & Arahan Tokoh Adat (Member Checking)",
+            prompt: "Pertanyaan validasi ke Timanggong/Baliatn: 'Apakah ejaan bahasa Kanayatn, makna filosofis ritus, dan batas wilayah ulayat yang kami paparkan sudah tepat dan tidak melanggar pantang adat?'",
+            type: "textarea",
+            placeholder: "Catat koreksi ejaan istilah, klarifikasi mitos, arahan materi sakral..."
+          }
         ]
       },
       {
@@ -2002,8 +2172,24 @@
         file: "Instrumen Pendukung/Instrumen_05_Protokol_Etika_Adat_dan_FPIC_Dwibahasa.docx",
         details: "Menjamin bahwa hak kekayaan intelektual komunal (KIK) tetap milik Dayak Kanayatn. Memuat klausul tertutup agar mantra sakral tersimpan khusus di lembaga adat dan tidak diumbar sembarangan.",
         formFields: [
-          { id: "f_persetujuan_rekam", label: "Izin Dokumentasi yang Diberikan", type: "select", options: ["Wawancara Audio + Foto + Video 4K (Lengkap)", "Hanya Wawancara Audio & Catatan Teks", "Wawancara Anonim (Nama Disamarkan)"] },
-          { id: "f_batasan_sakral", label: "Batasan Khusus Materi Sakral / Pantang", type: "textarea", placeholder: "Tuliskan bagian mantra/doa yang TIDAK BOLEH dipublikasikan dan wajib diarsipkan tertutup..." }
+          {
+            id: "f_persetujuan_rekam",
+            label: "Klasifikasi Izin Dokumentasi Informan",
+            prompt: "Tanyakan kepada narasumber: 'Apakah Bapak/Ibu bersedia wawancara ini direkam audio, difoto, dan direkam video 4K untuk arsip kebudayaan nasional, atau ada yang dibatasi?'",
+            type: "select",
+            options: [
+              "Wawancara Audio + Foto + Video 4K (Lengkap Terbuka)",
+              "Hanya Wawancara Audio & Catatan Teks (Tanpa Video Wajah)",
+              "Wawancara Anonim (Nama & Identitas Pribadi Disamarkan)"
+            ]
+          },
+          {
+            id: "f_batasan_sakral",
+            label: "Pernyataan Batasan Materi Sakral (Pantang/Pamali)",
+            prompt: "Tanyakan secara takzim: 'Adakah bagian mantra doa Nyangahatn, nama pantangan, atau ritus tertentu yang TIDAK BOLEH dipublikasikan ke publik dan wajib disimpan tertutup bagi lembaga adat?'",
+            type: "textarea",
+            placeholder: "Tuliskan bagian doa/mantra sakral yang berstatus rahasia adat..."
+          }
         ]
       },
       {
@@ -2016,9 +2202,27 @@
         file: "Instrumen Pendukung/Instrumen_06_Logsheet_Audiovisual_dan_Kurasi_Arsip_Digital.docx",
         details: "Membantu editor video merangkai narasi etnomatematika sinematik dan memastikan metadata arsip siap diserahkan ke sistem repositori kebudayaan nasional Kementerian Kebudayaan.",
         formFields: [
-          { id: "f_scene_take", label: "Kode Scene / Take / Roll Kartu", type: "input", placeholder: "Contoh: SC-02 / TK-01 / CARD-A (4K 60fps)" },
-          { id: "f_timecode", label: "Timecode & Latar Lokasi", type: "input", placeholder: "Contoh: TC 00:14:20 - Ladang Lereng Radakng Saham" },
-          { id: "f_deskripsi_aksi", label: "Deskripsi Aksi Visual & Makna Budaya", type: "textarea", placeholder: "Aksi: Petani menancapkan kayu tugal dan menabur benih secara sinkron dengan ritme..." }
+          {
+            id: "f_scene_take",
+            label: "Identifikasi Roll Kamera: Scene / Take / Card",
+            prompt: "Panduan juru kamera: Catat nomor kartu memori (Card A/B/C), nomor adegan (Scene ID), nomor ambilan (Take), dan resolusi rekaman (4K 24p / 60p slow-motion).",
+            type: "input",
+            placeholder: "Contoh: SC-02 / TK-01 / CARD-A (4K 60fps - Menugal Gerakan Lambat)"
+          },
+          {
+            id: "f_timecode",
+            label: "Timecode Durasi & Sudut Pengambilan Kamera",
+            prompt: "Panduan juru kamera: Catat pencatat waktu (TC start - end), jenis lensa yang dipasang (Wide 16mm / Normal 35mm / Macro 100mm untuk anyaman), serta sudut kamera (Eye level / High angle / Low angle).",
+            type: "input",
+            placeholder: "Contoh: TC 00:14:20 - 00:18:45 | Lensa Macro 100mm Anyaman Lanjung"
+          },
+          {
+            id: "f_deskripsi_aksi",
+            label: "Deskripsi Aksi Visual & Hubungan Etnomatematika",
+            prompt: "Panduan sutradara/peneliti: Jelaskan aksi visual yang terekam dalam take ini dan konsep etnomatematika apa yang ditampilkan untuk narasi video 15-20 menit.",
+            type: "textarea",
+            placeholder: "Aksi: Baliatn memegang kayu tugal menunjukkan cincin pembatas kedalaman lubang..."
+          }
         ]
       },
       {
@@ -2031,9 +2235,27 @@
         file: "Instrumen Pendukung/Instrumen_07_Jurnal_Refleksi_Harian_Etnografi.docx",
         details: "Diisi setiap malam di Rumah Radakng Saham bersama asisten lokal untuk mendiskusikan apa yang berjalan baik hari ini dan rencana aksi esok pagi.",
         formFields: [
-          { id: "f_ringkasan_hari", label: "Ringkasan Aktivitas Lapangan Hari Ini", type: "textarea", placeholder: "Siapa yang ditemui? Peristiwa budaya apa yang diobservasi hari ini?..." },
-          { id: "f_aha_moment", label: "Temuan Etnomatematika Menarik (Aha Moment)", type: "textarea", placeholder: "Temuan tak terduga yang membuka wawasan baru tentang matematika Kanayatn..." },
-          { id: "f_rencana_besok", label: "Rencana Tindak Lanjut Esok Hari", type: "textarea", placeholder: "Target informan berikutnya, instrumen yang akan digunakan..." }
+          {
+            id: "f_ringkasan_hari",
+            label: "Ringkasan Aktivitas Lapangan & Interaksi Hari Ini",
+            prompt: "Refleksi malam di Radakng Saham: 'Siapa saja tokoh adat atau warga yang ditemui hari ini? Peristiwa sosial-budaya apa yang paling bermakna dalam pengamatan hari ini?'",
+            type: "textarea",
+            placeholder: "Ringkas aktivitas pagi hingga sore, lokasi ladang yang dikunjungi, suasana warga..."
+          },
+          {
+            id: "f_aha_moment",
+            label: "Temuan Etnomatematika Menarik (Aha Moment)",
+            prompt: "Refleksi analitis: 'Konsep matematika Dayak Kanayatn apa yang paling mengejutkan, unik, atau membuka cara pandang baru hari ini yang sebelumnya tidak ada dalam literatur?'",
+            type: "textarea",
+            placeholder: "Catat temuan tak terduga tentang cara ukur, simetri, astronomi, atau logika lokal..."
+          },
+          {
+            id: "f_rencana_besok",
+            label: "Evaluasi Dinamika Tim & Rencana Tindak Lanjut Esok Hari",
+            prompt: "Refleksi diri & tim: 'Bagaimana penerimaan masyarakat terhadap tim hari ini? Apa masukan bahasa/kultural dari asisten lokal? Siapa narasumber berikutnya yang harus ditemui besok?'",
+            type: "textarea",
+            placeholder: "Catat koreksi komunikasi, mitigasi kendala cuaca/alat, dan rencana aksi esok..."
+          }
         ]
       },
       {
@@ -2046,8 +2268,25 @@
         file: "Instrumen Pendukung/Katalog_dan_Panduan_Operasional_Instrumen.docx",
         details: "Panduan induk rujukan cepat bagi seluruh 18 panitia dan pelindung/penasihat kegiatan.",
         formFields: [
-          { id: "f_divisi_panitia", label: "Divisi / Seksi yang Bertugas", type: "select", options: ["Seksi Kajian Etnomatematika (Petrus Yanson, ST)", "Seksi Kemitraan Adat (Adira, S.Pd)", "Seksi Dokumentasi & Publikasi (Yeriko, S.Pd)", "Seksi Logistik & Perlengkapan"] },
-          { id: "f_catatan_sop", label: "Laporan Pelaksanaan SOP Lapangan", type: "textarea", placeholder: "Catatan kepatuhan SOP, koordinasi perangkat desa, dan evaluasi logistik..." }
+          {
+            id: "f_divisi_panitia",
+            label: "Divisi / Seksi Pelaksana Lapangan yang Bertugas",
+            prompt: "Pilih seksi kepanitiaan pelaksana yang bertanggung jawab dalam misi lapangan hari ini.",
+            type: "select",
+            options: [
+              "Seksi Kajian Etnomatematika (Petrus Yanson, ST & Tim)",
+              "Seksi Kemitraan Adat & Komunitas (Adira, S.Pd & Tim)",
+              "Seksi Dokumentasi & Publikasi (Yeriko, S.Pd & Tim)",
+              "Seksi Logistik, Akomodasi & Medis Lapangan"
+            ]
+          },
+          {
+            id: "f_catatan_sop",
+            label: "Catatan Evaluasi Kepatuhan SOP & Logistik Riset",
+            prompt: "Evaluasi pelaksanaan: Apakah protokol salam sirih-pinang terlaksana? Bagaimana koordinasi dengan kepala desa/ketemenggungan? Apakah semua baterai kamera dan GPS terisi penuh?",
+            type: "textarea",
+            placeholder: "Catat kepatuhan SOP lapangan, kendala transportasi, dan koordinasi komunitas..."
+          }
         ]
       }
     ];
@@ -2174,8 +2413,21 @@
 
       if (inst.formFields && inst.formFields.length > 0) {
         inst.formFields.forEach(f => {
-          fieldsHtml += `<div class="form-field" style="margin-bottom: 14px;">`;
-          fieldsHtml += `<label for="${f.id}">${f.label}</label>`;
+          fieldsHtml += `<div class="form-field" style="margin-bottom: 20px;">`;
+          fieldsHtml += `<label for="${f.id}" style="margin-bottom: 3px;"><span>${f.label}</span></label>`;
+          
+          if (f.prompt) {
+            fieldsHtml += `
+              <div class="field-prompt-card">
+                <div class="field-prompt-header">
+                  <svg class="icon" viewBox="0 0 24 24" style="width: 14px; height: 14px;"><path d="M21 15a2 2 0 01-2 2H7l-4 4V5a2 2 0 012-2h14a2 2 0 012 2z"/></svg>
+                  <span>Pertanyaan Pemantik Pewawancara (Baca / Tanyakan ke Informan):</span>
+                </div>
+                <p class="field-prompt-text">"${f.prompt}"</p>
+              </div>
+            `;
+          }
+
           if (f.type === 'select') {
             fieldsHtml += `<select id="${f.id}" class="form-select">`;
             f.options.forEach(opt => {
@@ -2183,7 +2435,7 @@
             });
             fieldsHtml += `</select>`;
           } else if (f.type === 'textarea') {
-            fieldsHtml += `<textarea id="${f.id}" class="form-textarea" placeholder="${f.placeholder || ''}"></textarea>`;
+            fieldsHtml += `<textarea id="${f.id}" class="form-textarea" placeholder="${f.placeholder || 'Catat jawaban informan di sini...'}"></textarea>`;
           } else {
             fieldsHtml += `<input type="text" id="${f.id}" class="form-input" placeholder="${f.placeholder || ''}">`;
           }
@@ -2314,7 +2566,7 @@
         inst.formFields.forEach(f => {
           const el = document.getElementById(f.id);
           const val = el ? el.value.trim() : "-";
-          dynamicAnswers.push({ label: f.label, val: val || "-" });
+          dynamicAnswers.push({ label: f.label, prompt: f.prompt || "", val: val || "-" });
         });
       }
 
@@ -2352,7 +2604,20 @@
             docParagraphs.push(new Paragraph({
               children: [new TextRun({ text: `\n${ans.label}`, bold: true })]
             }));
-            docParagraphs.push(new Paragraph({ text: ans.val }));
+            if (ans.prompt) {
+              docParagraphs.push(new Paragraph({
+                children: [
+                  new TextRun({ text: `Pertanyaan Pemantik: `, bold: true, italics: true, size: 19, color: "B45309" }),
+                  new TextRun({ text: `"${ans.prompt}"`, italics: true, size: 19, color: "555555" })
+                ]
+              }));
+            }
+            docParagraphs.push(new Paragraph({
+              children: [
+                new TextRun({ text: `Jawaban / Catatan Lapangan: `, bold: true }),
+                new TextRun({ text: ans.val })
+              ]
+            }));
           });
 
           docParagraphs.push(new Paragraph({ text: "" }));
@@ -2388,7 +2653,7 @@
       let htmlDoc = `
         <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
         <head><meta charset='utf-8'><title>${inst.id}</title>
-        <style>body{font-family:Arial,sans-serif;font-size:11pt;line-height:1.5;} h2{font-size:14pt;text-align:center;} .kop{text-align:center;font-weight:bold;margin-bottom:20px;border-bottom:2px solid #000;padding-bottom:10px;}</style>
+        <style>body{font-family:Arial,sans-serif;font-size:11pt;line-height:1.5;} h2{font-size:14pt;text-align:center;} .kop{text-align:center;font-weight:bold;margin-bottom:20px;border-bottom:2px solid #000;padding-bottom:10px;} .prompt{color:#b45309;font-style:italic;margin-bottom:4px;}</style>
         </head><body>
         <div class='kop'>
           KEMENTERIAN KEBUDAYAAN REPUBLIK INDONESIA<br>
@@ -2406,7 +2671,11 @@
       `;
 
       dynamicAnswers.forEach(ans => {
-        htmlDoc += `<p><b>${ans.label}</b><br>${ans.val.replace(/\n/g, '<br>')}</p>`;
+        htmlDoc += `<p><b>${ans.label}</b><br>`;
+        if (ans.prompt) {
+          htmlDoc += `<span class='prompt'>Pertanyaan Pemantik: "${ans.prompt}"</span><br>`;
+        }
+        htmlDoc += `<b>Jawaban:</b> ${ans.val.replace(/\n/g, '<br>')}</p>`;
       });
 
       htmlDoc += `
