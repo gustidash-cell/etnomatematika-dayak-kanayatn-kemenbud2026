@@ -1,51 +1,53 @@
 <!DOCTYPE html>
-<html lang="id">
+<html lang="id" data-theme="light">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Portal Lapangan Etnomatematika Dayak Kanayatn | Kemenbud 2026</title>
-  <meta name="description" content="Single Page Application (SPA) Alur Pengumpulan Data dan Instrumen Riset Etnomatematika Siklus Padi Dayak Kanayatn di Landak - Program Dana Abadi Kebudayaan Kemenbud RI 2026.">
+  <meta name="description" content="Single Page Application (SPA) Alur Pengumpulan Data dan Pengisian Instrumen Lapangan Riset Etnomatematika Siklus Padi Dayak Kanayatn di Landak - Kemenbud RI 2026.">
   
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600&family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
   
+  <!-- Client-side Docx.js CDN for Word Export (with offline fallback) -->
+  <script src="https://unpkg.com/docx@8.5.0/build/index.js"></script>
+
   <style>
-    /* DESIGN SYSTEM ROOT TOKENS */
-    :root {
-      --bg: #0a0d12;
-      --surface: #121721;
-      --surface-raised: #1a2230;
-      --surface-hover: #222c3d;
-      --surface-glass: rgba(18, 23, 33, 0.88);
-      --surface-glass-card: rgba(22, 28, 40, 0.75);
+    /* CSS VARIABLES: DUAL THEME (LIGHT MODE BY DEFAULT) */
+    :root, [data-theme="light"] {
+      --bg: #f8fafc;
+      --surface: #ffffff;
+      --surface-raised: #f1f5f9;
+      --surface-hover: #e2e8f0;
+      --surface-glass: rgba(255, 255, 255, 0.94);
+      --surface-glass-card: rgba(255, 255, 255, 0.85);
 
-      --text-primary: #f3f4f6;
-      --text-secondary: #9ca3af;
-      --text-muted: #6b7280;
-      --text-inverse: #0a0d12;
+      --text-primary: #0f172a;
+      --text-secondary: #334155;
+      --text-muted: #64748b;
+      --text-inverse: #ffffff;
 
-      --accent: #e5a93c;
-      --accent-hover: #f3be58;
-      --accent-subtle: rgba(229, 169, 60, 0.12);
-      --accent-secondary: #22c55e;
-      --accent-secondary-subtle: rgba(34, 197, 94, 0.12);
-      --accent-tertiary: #38bdf8;
-      --accent-tertiary-subtle: rgba(56, 189, 248, 0.12);
+      --accent: #d97706;              /* Warm Harvest Amber */
+      --accent-hover: #b45309;
+      --accent-subtle: rgba(217, 119, 6, 0.12);
+      --accent-secondary: #16a34a;    /* Forest Emerald */
+      --accent-secondary-subtle: rgba(22, 163, 74, 0.12);
+      --accent-tertiary: #0284c7;     /* Sky/Astronomy */
 
-      --border: rgba(255, 255, 255, 0.08);
-      --border-strong: rgba(255, 255, 255, 0.16);
-      --border-accent: rgba(229, 169, 60, 0.35);
+      --border: rgba(0, 0, 0, 0.09);
+      --border-strong: rgba(0, 0, 0, 0.16);
+      --border-accent: rgba(217, 119, 6, 0.35);
 
       --font-display: 'Outfit', 'Plus Jakarta Sans', sans-serif;
       --font-body: 'Plus Jakarta Sans', -apple-system, BlinkMacSystemFont, sans-serif;
       --font-mono: 'JetBrains Mono', monospace;
 
-      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.25);
-      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.35);
-      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.5);
-      --shadow-glow: 0 0 30px rgba(229, 169, 60, 0.15);
+      --shadow-sm: 0 1px 3px rgba(0, 0, 0, 0.06), 0 1px 2px rgba(0, 0, 0, 0.04);
+      --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+      --shadow-lg: 0 12px 36px rgba(0, 0, 0, 0.12);
+      --shadow-glow: 0 0 24px rgba(217, 119, 6, 0.16);
 
       --radius-sm: 6px;
       --radius-md: 12px;
@@ -54,6 +56,36 @@
       --ease-spring: cubic-bezier(0.16, 1, 0.3, 1);
       --duration-fast: 180ms;
       --duration-normal: 280ms;
+    }
+
+    [data-theme="dark"] {
+      --bg: #0a0d12;
+      --surface: #121721;
+      --surface-raised: #1a2230;
+      --surface-hover: #222c3d;
+      --surface-glass: rgba(18, 23, 33, 0.92);
+      --surface-glass-card: rgba(22, 28, 40, 0.85);
+
+      --text-primary: #f3f4f6;
+      --text-secondary: #9ca3af;
+      --text-muted: #6b7280;
+      --text-inverse: #0a0d12;
+
+      --accent: #e5a93c;
+      --accent-hover: #f3be58;
+      --accent-subtle: rgba(229, 169, 60, 0.14);
+      --accent-secondary: #22c55e;
+      --accent-secondary-subtle: rgba(34, 197, 94, 0.14);
+      --accent-tertiary: #38bdf8;
+
+      --border: rgba(255, 255, 255, 0.08);
+      --border-strong: rgba(255, 255, 255, 0.16);
+      --border-accent: rgba(229, 169, 60, 0.35);
+
+      --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.3);
+      --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+      --shadow-lg: 0 16px 48px rgba(0, 0, 0, 0.55);
+      --shadow-glow: 0 0 30px rgba(229, 169, 60, 0.18);
     }
 
     *, *::before, *::after {
@@ -76,6 +108,7 @@
       min-height: 100vh;
       display: flex;
       flex-direction: column;
+      transition: background-color var(--duration-normal), color var(--duration-normal);
     }
 
     a {
@@ -138,7 +171,7 @@
       align-items: center;
       justify-content: center;
       color: var(--accent);
-      box-shadow: 0 0 20px rgba(229, 169, 60, 0.12);
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.12);
     }
 
     .brand-text h1 {
@@ -146,7 +179,7 @@
       font-size: 16px;
       font-weight: 700;
       letter-spacing: -0.01em;
-      color: #ffffff;
+      color: var(--text-primary);
       line-height: 1.2;
     }
 
@@ -162,7 +195,7 @@
       display: flex;
       align-items: center;
       gap: 6px;
-      background: rgba(255, 255, 255, 0.04);
+      background: var(--surface-raised);
       padding: 4px;
       border-radius: var(--radius-full);
       border: 1px solid var(--border);
@@ -186,14 +219,18 @@
 
     .spa-tab-btn:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.05);
+      background: rgba(0, 0, 0, 0.05);
+    }
+
+    [data-theme="dark"] .spa-tab-btn:hover {
+      background: rgba(255, 255, 255, 0.06);
     }
 
     .spa-tab-btn.active {
       background: var(--accent);
       color: var(--text-inverse);
       font-weight: 600;
-      box-shadow: 0 2px 12px rgba(229, 169, 60, 0.3);
+      box-shadow: 0 2px 10px rgba(217, 119, 6, 0.28);
     }
 
     .spa-tab-btn.active .icon {
@@ -227,7 +264,7 @@
 
     .btn-primary:hover {
       background: var(--accent-hover);
-      box-shadow: 0 4px 16px rgba(229, 169, 60, 0.35);
+      box-shadow: 0 4px 14px rgba(217, 119, 6, 0.3);
       transform: translateY(-1px);
     }
 
@@ -242,11 +279,31 @@
       border-color: var(--accent);
     }
 
-    /* Hero Sub-Bar / Context Banner */
+    /* Theme Toggle Button */
+    .btn-theme-toggle {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius-md);
+      background: var(--surface-raised);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: all var(--duration-fast);
+    }
+
+    .btn-theme-toggle:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* Context Sub-Bar */
     .context-bar {
       background: var(--surface);
       border-bottom: 1px solid var(--border);
-      padding: 16px 0;
+      padding: 14px 0;
     }
 
     .context-inner {
@@ -280,17 +337,18 @@
       border-radius: var(--radius-full);
       font-family: var(--font-mono);
       font-size: 11px;
+      font-weight: 600;
     }
 
     /* Main SPA View Container */
     main.spa-main {
       flex: 1;
-      padding: 36px 0 64px;
+      padding: 32px 0 64px;
     }
 
     .spa-view {
       display: none;
-      animation: fadeInView 0.28s var(--ease-spring) forwards;
+      animation: fadeInView 0.25s var(--ease-spring) forwards;
     }
 
     .spa-view.active {
@@ -300,7 +358,7 @@
     @keyframes fadeInView {
       from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(6px);
       }
       to {
         opacity: 1;
@@ -310,9 +368,9 @@
 
     /* Page View Titles */
     .view-header {
-      margin-bottom: 28px;
+      margin-bottom: 24px;
       border-bottom: 1px solid var(--border);
-      padding-bottom: 18px;
+      padding-bottom: 16px;
       display: flex;
       align-items: flex-end;
       justify-content: space-between;
@@ -324,7 +382,7 @@
       font-family: var(--font-display);
       font-size: 26px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       display: flex;
       align-items: center;
       gap: 10px;
@@ -334,8 +392,8 @@
     .view-title-group p {
       font-size: 14px;
       color: var(--text-secondary);
-      margin-top: 6px;
-      max-width: 800px;
+      margin-top: 4px;
+      max-width: 820px;
     }
 
     /* Stepper (Fase 1-6) */
@@ -362,9 +420,9 @@
     }
 
     .step-btn.active {
-      background: var(--surface-raised);
+      background: var(--surface);
       border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(229, 169, 60, 0.15);
+      box-shadow: 0 0 16px rgba(217, 119, 6, 0.2);
     }
 
     .step-num {
@@ -396,6 +454,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 32px;
+      box-shadow: var(--shadow-sm);
     }
 
     .phase-grid {
@@ -508,6 +567,7 @@
       flex-direction: column;
       justify-content: space-between;
       transition: all var(--duration-fast) var(--ease-spring);
+      box-shadow: var(--shadow-sm);
     }
 
     .inst-card:hover {
@@ -531,6 +591,7 @@
       border: 1px solid var(--border-accent);
       padding: 3px 8px;
       border-radius: var(--radius-sm);
+      font-weight: 600;
     }
 
     .inst-target {
@@ -543,7 +604,7 @@
       font-family: var(--font-display);
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       line-height: 1.35;
       margin-bottom: 8px;
     }
@@ -574,15 +635,16 @@
     .inst-actions {
       display: flex;
       align-items: center;
-      gap: 10px;
+      gap: 8px;
       border-top: 1px solid var(--border);
       padding-top: 16px;
+      flex-wrap: wrap;
     }
 
     .btn-card {
       font-size: 12px;
       font-weight: 600;
-      padding: 7px 14px;
+      padding: 7px 13px;
       border-radius: var(--radius-sm);
       display: inline-flex;
       align-items: center;
@@ -593,70 +655,160 @@
     }
 
     .btn-card-primary {
-      background: var(--surface-raised);
-      color: var(--text-primary);
-    }
-
-    .btn-card-primary:hover {
       background: var(--accent);
       color: var(--text-inverse);
       border-color: var(--accent);
     }
 
+    .btn-card-primary:hover {
+      background: var(--accent-hover);
+      border-color: var(--accent-hover);
+    }
+
     .btn-card-secondary {
-      background: transparent;
-      color: var(--text-secondary);
+      background: var(--surface-raised);
+      color: var(--text-primary);
     }
 
     .btn-card-secondary:hover {
-      color: var(--text-primary);
+      background: var(--surface-hover);
       border-color: var(--border-strong);
     }
 
-    /* In-App Instrument Reader / Interactive Form */
-    .reader-container {
+    /* ===================================================
+       FORM STUDIO: INTERACTIVE IN-APP INSTRUMENT FILLER
+       =================================================== */
+    .form-studio-wrap {
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
-      padding: 32px;
-      margin-top: 24px;
+      padding: 36px;
+      box-shadow: var(--shadow-sm);
+      margin-bottom: 40px;
     }
 
-    .reader-header {
+    .form-official-header {
+      text-align: center;
+      border-bottom: 2px solid var(--text-primary);
+      padding-bottom: 16px;
+      margin-bottom: 28px;
+    }
+
+    .form-official-header h3 {
+      font-family: var(--font-display);
+      font-size: 17px;
+      font-weight: 800;
+      letter-spacing: 0.04em;
+      color: var(--text-primary);
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+
+    .form-official-header p {
+      font-size: 13px;
+      color: var(--text-secondary);
+      margin-top: 4px;
+    }
+
+    .form-section-title {
+      font-family: var(--font-display);
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--accent);
+      margin: 24px 0 12px;
       display: flex;
       align-items: center;
-      justify-content: space-between;
-      border-bottom: 1px solid var(--border);
-      padding-bottom: 16px;
-      margin-bottom: 24px;
+      gap: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.03em;
     }
 
-    .reader-content h4 {
-      font-family: var(--font-display);
-      font-size: 16px;
-      color: #ffffff;
-      margin: 18px 0 8px;
+    .form-grid-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
     }
 
-    .reader-table {
+    .form-grid-3 {
+      display: grid;
+      grid-template-columns: 1fr 1fr 1fr;
+      gap: 16px;
+      margin-bottom: 16px;
+    }
+
+    .form-field {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+    }
+
+    .form-field label {
+      font-size: 12px;
+      font-family: var(--font-mono);
+      font-weight: 600;
+      color: var(--text-secondary);
+    }
+
+    .form-input, .form-textarea, .form-select {
+      background: var(--surface-raised);
+      border: 1px solid var(--border-strong);
+      color: var(--text-primary);
+      padding: 10px 14px;
+      border-radius: var(--radius-sm);
+      font-size: 13.5px;
+      font-family: var(--font-body);
+      outline: none;
+      transition: all var(--duration-fast);
+      width: 100%;
+    }
+
+    .form-input:focus, .form-textarea:focus, .form-select:focus {
+      border-color: var(--accent);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
+    }
+
+    .form-textarea {
+      min-height: 80px;
+      resize: vertical;
+      line-height: 1.5;
+    }
+
+    .form-interactive-table {
       width: 100%;
       border-collapse: collapse;
-      margin: 14px 0 24px;
+      margin: 16px 0 24px;
       font-size: 13px;
     }
 
-    .reader-table th, .reader-table td {
-      border: 1px solid var(--border);
-      padding: 10px 14px;
-      text-align: left;
+    .form-interactive-table th, .form-interactive-table td {
+      border: 1px solid var(--border-strong);
+      padding: 10px 12px;
+      vertical-align: top;
     }
 
-    .reader-table th {
+    .form-interactive-table th {
       background: var(--surface-raised);
-      color: var(--accent);
       font-family: var(--font-mono);
-      font-size: 11px;
+      font-size: 11.5px;
+      color: var(--text-primary);
       text-transform: uppercase;
+    }
+
+    .form-action-bar {
+      position: sticky;
+      bottom: 20px;
+      z-index: 90;
+      background: var(--surface-glass);
+      backdrop-filter: blur(16px);
+      border: 1px solid var(--border-accent);
+      border-radius: var(--radius-md);
+      padding: 16px 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow-lg);
+      margin-top: 32px;
     }
 
     /* Bishop 6 Framework */
@@ -673,11 +825,12 @@
       padding: 22px;
       border-radius: var(--radius-md);
       transition: all var(--duration-fast);
+      box-shadow: var(--shadow-sm);
     }
 
     .bishop-card:hover {
       border-color: var(--border-accent);
-      background: var(--surface-raised);
+      transform: translateY(-2px);
     }
 
     .bishop-icon-wrap {
@@ -697,7 +850,7 @@
       font-family: var(--font-display);
       font-size: 16px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       margin-bottom: 6px;
     }
 
@@ -706,6 +859,7 @@
       font-size: 11px;
       color: var(--accent);
       margin-bottom: 10px;
+      font-weight: 600;
     }
 
     .bishop-card p.text {
@@ -726,13 +880,14 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 28px;
+      box-shadow: var(--shadow-sm);
     }
 
     .tool-box h3 {
       font-family: var(--font-display);
       font-size: 18px;
       font-weight: 700;
-      color: #ffffff;
+      color: var(--text-primary);
       margin-bottom: 8px;
       display: flex;
       align-items: center;
@@ -752,31 +907,6 @@
       margin-bottom: 16px;
     }
 
-    .calc-input-group label {
-      display: block;
-      font-size: 11px;
-      font-family: var(--font-mono);
-      color: var(--text-muted);
-      margin-bottom: 6px;
-    }
-
-    .calc-select, .calc-input {
-      width: 100%;
-      background: var(--surface-raised);
-      border: 1px solid var(--border);
-      color: var(--text-primary);
-      padding: 10px 14px;
-      border-radius: var(--radius-sm);
-      font-size: 14px;
-      font-family: var(--font-body);
-      outline: none;
-      transition: border-color var(--duration-fast);
-    }
-
-    .calc-select:focus, .calc-input:focus {
-      border-color: var(--accent);
-    }
-
     .calc-result-box {
       background: var(--surface-raised);
       border: 1px solid var(--border-accent);
@@ -786,11 +916,6 @@
       display: flex;
       align-items: center;
       justify-content: space-between;
-    }
-
-    .result-label {
-      font-size: 12px;
-      color: var(--text-secondary);
     }
 
     .result-val {
@@ -804,19 +929,20 @@
     .glossary-search-input {
       width: 100%;
       background: var(--surface);
-      border: 1px solid var(--border);
+      border: 1px solid var(--border-strong);
       color: var(--text-primary);
       padding: 12px 18px;
       border-radius: var(--radius-md);
       font-size: 14px;
       outline: none;
       margin-bottom: 24px;
-      transition: border-color var(--duration-fast);
+      transition: all var(--duration-fast);
+      box-shadow: var(--shadow-sm);
     }
 
     .glossary-search-input:focus {
       border-color: var(--accent);
-      box-shadow: 0 0 20px rgba(229, 169, 60, 0.15);
+      box-shadow: 0 0 0 3px var(--accent-subtle);
     }
 
     .glossary-grid {
@@ -831,11 +957,12 @@
       padding: 18px 20px;
       border-radius: var(--radius-md);
       transition: all var(--duration-fast);
+      box-shadow: var(--shadow-sm);
     }
 
     .glossary-card:hover {
       border-color: var(--border-strong);
-      background: var(--surface-raised);
+      transform: translateY(-2px);
     }
 
     .glossary-card-top {
@@ -854,7 +981,7 @@
 
     .glossary-cat-badge {
       font-size: 11px;
-      background: rgba(255, 255, 255, 0.06);
+      background: var(--surface-raised);
       color: var(--text-muted);
       padding: 3px 8px;
       border-radius: var(--radius-sm);
@@ -873,6 +1000,7 @@
       border: 1px solid var(--border);
       border-radius: var(--radius-lg);
       padding: 32px;
+      box-shadow: var(--shadow-sm);
     }
 
     .check-progress-bar-wrap {
@@ -975,8 +1103,8 @@
       left: 0;
       right: 0;
       bottom: 0;
-      background: rgba(10, 13, 18, 0.88);
-      backdrop-filter: blur(10px);
+      background: rgba(15, 23, 42, 0.7);
+      backdrop-filter: blur(8px);
       z-index: 200;
       display: none;
       align-items: center;
@@ -1017,7 +1145,6 @@
 
     .modal-close-btn:hover {
       color: var(--text-primary);
-      background: rgba(255, 255, 255, 0.05);
     }
 
     /* Footer */
@@ -1038,40 +1165,50 @@
       gap: 16px;
     }
 
-    /* Print Styles */
+    /* ===================================================
+       PRINT FORMATTING (@media print)
+       =================================================== */
     @media print {
       body {
         background: #ffffff !important;
         color: #000000 !important;
+        font-size: 11pt !important;
       }
-      header.app-header, .context-bar, .spa-nav, .btn-action, .modal-overlay, .stepper-nav, .filter-tabs, .inst-actions {
+      header.app-header, .context-bar, .spa-nav, .btn-action, .modal-overlay, 
+      .form-action-bar, .filter-tabs, .inst-actions, .stepper-nav, .btn-theme-toggle {
         display: none !important;
       }
       .spa-view {
-        display: block !important;
-        opacity: 1 !important;
-        transform: none !important;
+        display: none !important;
       }
-      .container {
-        max-width: 100% !important;
+      #view-form-studio {
+        display: block !important;
+      }
+      .form-studio-wrap {
+        border: none !important;
+        box-shadow: none !important;
         padding: 0 !important;
       }
-      .phase-display, .inst-card, .bishop-card, .tool-box, .checklist-wrap, .glossary-card {
-        border: 1px solid #cccccc !important;
+      .form-official-header {
+        border-bottom: 2px solid #000000 !important;
+        margin-bottom: 20px !important;
+      }
+      .form-input, .form-textarea, .form-select {
+        border: 1px solid #777777 !important;
         background: #ffffff !important;
         color: #000000 !important;
-        break-inside: avoid;
+        font-size: 10pt !important;
       }
-      h1, h2, h3, h4, strong {
+      .form-interactive-table th, .form-interactive-table td {
+        border: 1px solid #444444 !important;
         color: #000000 !important;
       }
-      .badge-pill, .inst-code {
-        border-color: #000000 !important;
-        color: #000000 !important;
+      .form-interactive-table th {
+        background: #eeeeee !important;
       }
     }
 
-    /* Responsive */
+    /* Responsive Breakpoints */
     @media (max-width: 1024px) {
       .stepper-nav {
         grid-template-columns: repeat(3, 1fr);
@@ -1105,12 +1242,20 @@
       .bishop-grid {
         grid-template-columns: 1fr;
       }
+      .form-grid-2, .form-grid-3 {
+        grid-template-columns: 1fr;
+      }
+      .form-action-bar {
+        flex-direction: column;
+        gap: 12px;
+        position: static;
+      }
     }
   </style>
 </head>
-<body>
+<body data-theme="light">
 
-  <!-- Top Sticky App Header with SPA Navigation -->
+  <!-- Top Sticky App Header -->
   <header class="app-header">
     <div class="container header-inner">
       <div class="brand-wrap">
@@ -1148,10 +1293,16 @@
       </nav>
 
       <div class="header-actions">
+        <!-- Theme Toggle Button (Light/Dark) -->
+        <button class="btn-theme-toggle" id="themeToggleBtn" onclick="toggleTheme()" title="Beralih Mode Siang / Malam">
+          <svg class="icon" id="themeIcon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/></svg>
+        </button>
+
         <button class="btn-action btn-secondary" onclick="window.print()" title="Cetak halaman aktif ke PDF">
           <svg class="icon" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
           <span>Cetak PDF</span>
         </button>
+
         <a class="btn-action btn-primary" href="Instrumen Pendukung/Katalog_dan_Panduan_Operasional_Instrumen.docx" download>
           <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
           <span>Unduh Paket Docx</span>
@@ -1189,14 +1340,11 @@
             <svg class="icon" viewBox="0 0 24 24" style="color: var(--accent);"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>
             Alur 6 Fase Pengumpulan & Validasi Data
           </h2>
-          <p>Jadwal operasional terpadu 10 bulan riset lapangan, mulai dari perizinan adat, penanaman (menugal), panen, hingga sidang validasi komunitas (member checking).</p>
+          <p>Jadwal operasional terpadu 10 bulan riset lapangan: persiapan administrasi adat, penanaman (menugal), panen, hingga sidang validasi komunitas (*member checking*).</p>
         </div>
       </div>
 
-      <!-- Stepper Buttons -->
       <div class="stepper-nav" id="stepperNav"></div>
-
-      <!-- Active Phase Display -->
       <div class="phase-display" id="phaseDisplay"></div>
     </section>
 
@@ -1206,9 +1354,9 @@
         <div class="view-title-group">
           <h2>
             <svg class="icon" viewBox="0 0 24 24" style="color: var(--accent);"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
-            Hub Dokumen 8 Instrumen Pendukung (.docx)
+            Hub Dokumen 8 Instrumen Pendukung Lapangan
           </h2>
-          <p>Paket instrumen siap cetak di folder <code>Instrumen Pendukung</code>. Dilengkapi fitur pratinjau langsung dan formulir interaktif in-app.</p>
+          <p>Pilih instrumen di bawah ini untuk <strong>diisi langsung lewat form interaktif</strong>, lalu cetak ke PDF atau ekspor menjadi berkas Microsoft Word (.docx).</p>
         </div>
 
         <div class="filter-tabs" id="filterTabs">
@@ -1220,6 +1368,152 @@
       </div>
 
       <div class="instruments-grid" id="instrumentsGrid"></div>
+    </section>
+
+    <!-- VIEW 2B: FORM STUDIO (INTERACTIVE INSTRUMENT FILLER) -->
+    <section id="view-form-studio" class="spa-view" role="tabpanel">
+      <div class="view-header">
+        <div class="view-title-group">
+          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
+            <button class="btn-card btn-card-secondary" onclick="switchView('instrumen')">
+              <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+              Kembali ke Daftar Instrumen
+            </button>
+            <span class="badge-pill" id="formActiveCode">INST-01-ETNO</span>
+          </div>
+          <h2 id="formActiveTitle">Pengisian Formulir Lapangan</h2>
+          <p id="formActiveDesc">Silakan isi formulir di bawah ini saat sesi lapangan. Form akan selalu kosong bersih setiap kali halaman dimuat ulang (*reload*).</p>
+        </div>
+      </div>
+
+      <!-- Main Form Container -->
+      <form id="interactiveFieldForm" onsubmit="event.preventDefault();" autocomplete="off">
+        <div class="form-studio-wrap">
+          
+          <!-- Official Kop Surat -->
+          <div class="form-official-header">
+            <h3>KEMENTERIAN KEBUDAYAAN REPUBLIK INDONESIA</h3>
+            <p><strong>PROGRAM PEMANFAATAN HASIL KELOLA DANA ABADI KEBUDAYAAN TAHUN 2026</strong></p>
+            <p style="font-size: 12px; font-style: italic; color: var(--text-muted);">
+              Kajian Objek Pemajuan Kebudayaan: Etnomatematika Siklus Padi Dayak Kanayatn di Rumah Radakng Saham, Landak
+            </p>
+          </div>
+
+          <!-- Section 1: Identitas Informan & Sesi -->
+          <div class="form-section-title">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+            Bagian A: Identitas Informan & Log Sesi Lapangan
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label for="formNamaNarasumber">Nama Lengkap Narasumber / Tokoh</label>
+              <input type="text" id="formNamaNarasumber" class="form-input" placeholder="Contoh: Ne' Suparto / Ambe' Ranto">
+            </div>
+            <div class="form-field">
+              <label for="formGelarAdat">Posisi Adat / Peran Komunitas</label>
+              <select id="formGelarAdat" class="form-select">
+                <option value="Timanggong">Timanggong (Ketua Adat)</option>
+                <option value="Pasirah">Pasirah Adat</option>
+                <option value="Baliatn">Baliatn (Tokoh Ritus/Spiritual)</option>
+                <option value="Tuha Tani">Tuha Tani (Petani Senior)</option>
+                <option value="Pengrajin">Pengrajin Anyaman / Kriya</option>
+                <option value="Pemuda Adat">Pemuda Adat / Warga Ladang</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="formUsiaGender">Usia & Jenis Kelamin</label>
+              <input type="text" id="formUsiaGender" class="form-input" placeholder="Contoh: 58 Tahun / Laki-laki">
+            </div>
+          </div>
+
+          <div class="form-grid-3">
+            <div class="form-field">
+              <label for="formLokasi">Lokasi / Kampung di Saham</label>
+              <input type="text" id="formLokasi" class="form-input" value="Rumah Radakng Saham, Dusun Saham, Sengah Temila">
+            </div>
+            <div class="form-field">
+              <label for="formTanggalSesi">Hari, Tanggal & Waktu Sesi</label>
+              <input type="text" id="formTanggalSesi" class="form-input" placeholder="Contoh: Rabu, 15 Juli 2026 - Pukul 09:30 WIB">
+            </div>
+            <div class="form-field">
+              <label for="formPencatat">Pencatat / Pewawancara & Asisten</label>
+              <input type="text" id="formPencatat" class="form-input" placeholder="Pewawancara: ... | Asisten Lokal: ...">
+            </div>
+          </div>
+
+          <!-- Section 2: Dinamis Sesuai Instrumen -->
+          <div id="dynamicFormSections"></div>
+
+          <!-- Section 3: Catatan Akhir & Status Kerahasiaan Adat -->
+          <div class="form-section-title">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            Bagian Penutup: Etika Adat & Status Materi
+          </div>
+
+          <div class="form-grid-2">
+            <div class="form-field">
+              <label for="formStatusKerahasiaan">Klasifikasi Hak Akses Dokumen</label>
+              <select id="formStatusKerahasiaan" class="form-select">
+                <option value="Publik Terbuka">Terbuka untuk Publik (Buku OPK, Jurnal, Video)</option>
+                <option value="Terbatas Adat">Terbatas Lembaga Adat (Mantra / Bagian Sakral Tertutup)</option>
+              </select>
+            </div>
+            <div class="form-field">
+              <label for="formPersetujuanNarasumber">Persetujuan Informan (FPIC)</label>
+              <select id="formPersetujuanNarasumber" class="form-select">
+                <option value="Setuju Penuh">Narasumber Menyetujui Secara Sadar Tanpa Paksaan</option>
+                <option value="Setuju dengan Syarat">Setuju dengan Anonimisasi Nama</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-field" style="margin-top: 12px;">
+            <label for="formCatatanReflektif">Catatan Reflektif & Kesimpulan Lapangan</label>
+            <textarea id="formCatatanReflektif" class="form-textarea" placeholder="Tuliskan catatan penting, suasana saat wawancara, respon masyarakat, atau istilah baru yang ditemukan..."></textarea>
+          </div>
+
+          <!-- Signatures Box for Print -->
+          <div style="margin-top: 36px; display: grid; grid-template-columns: 1fr 1fr; gap: 40px; text-align: center; font-size: 13px;">
+            <div>
+              <p>Mengetahui,</p>
+              <p><strong>Tim Peneliti Kemenbud RI 2026</strong></p>
+              <div style="height: 64px;"></div>
+              <p>( <strong>Dr. Siti Suprihatiningsih, M.Pd.</strong> )</p>
+            </div>
+            <div>
+              <p id="signDateLocation">Saham, ......................................... 2026</p>
+              <p><strong>Narasumber / Informan Adat</strong></p>
+              <div style="height: 64px;"></div>
+              <p id="signInformanName">( ................................................................ )</p>
+            </div>
+          </div>
+
+        </div>
+
+        <!-- Sticky Floating Action Bar -->
+        <div class="form-action-bar">
+          <div>
+            <span style="font-size: 13px; font-weight: 600; color: var(--text-primary);" id="statusBarDocName">Instrumen Aktif Siap Disimpan</span>
+            <span style="display: block; font-size: 11px; color: var(--text-muted);">Isian tidak disimpan ke memori peramban dan akan bersih saat reload.</span>
+          </div>
+
+          <div style="display: flex; gap: 10px; flex-wrap: wrap;">
+            <button type="button" class="btn-action btn-secondary" onclick="resetFormInputs(true)">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M3 12a9 9 0 109-9 9.75 9.75 0 00-6.74 2.74L3 8"/><path d="M3 3v5h5"/></svg>
+              <span>Kosongkan Form</span>
+            </button>
+            <button type="button" class="btn-action btn-secondary" onclick="printFormAsPDF()">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M6 9V2h12v7M6 18H4a2 2 0 01-2-2v-5a2 2 0 012-2h16a2 2 0 012 2v5a2 2 0 01-2 2h-2M6 14h12v8H6z"/></svg>
+              <span>Cetak / Simpan PDF</span>
+            </button>
+            <button type="button" class="btn-action btn-primary" onclick="exportFilledFormDocx()">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+              <span>Ekspor Hasil ke .Docx</span>
+            </button>
+          </div>
+        </div>
+      </form>
     </section>
 
     <!-- VIEW 3: METROLOGI & BISHOP -->
@@ -1234,7 +1528,6 @@
         </div>
       </div>
 
-      <!-- Bishop 6 Cards -->
       <div class="bishop-grid">
         <div class="bishop-card">
           <div class="bishop-icon-wrap"><svg class="icon" viewBox="0 0 24 24"><path d="M4 7V4h16v3M9 20h6M12 4v16"/></svg></div>
@@ -1279,7 +1572,6 @@
         </div>
       </div>
 
-      <!-- Metrology Tool Box -->
       <div class="split-tools">
         <div class="tool-box">
           <h3>
@@ -1289,9 +1581,9 @@
           <p class="tool-desc">Konversi nilai empiris ukuran tradisional Kanayatn ke standar metrik internasional (SI) berbasis pengukuran lapangan.</p>
 
           <div class="calc-row">
-            <div class="calc-input-group">
+            <div class="form-field">
               <label for="metroUnit">Satuan Tradisional</label>
-              <select id="metroUnit" class="calc-select" onchange="calculateMetrology()">
+              <select id="metroUnit" class="form-select" onchange="calculateMetrology()">
                 <option value="solok">Solok (Tabung Bambu Benih Padi)</option>
                 <option value="gantang">Gantang (Wadah Kayu/Anyaman Gabah)</option>
                 <option value="kaleng">Kaleng / Blek Minyak Tanah (Gabah)</option>
@@ -1302,15 +1594,15 @@
               </select>
             </div>
 
-            <div class="calc-input-group">
+            <div class="form-field">
               <label for="metroValue">Kuantitas Input</label>
-              <input type="number" id="metroValue" class="calc-input" value="1" min="0.1" step="0.5" oninput="calculateMetrology()">
+              <input type="number" id="metroValue" class="form-input" value="1" min="0.1" step="0.5" oninput="calculateMetrology()">
             </div>
           </div>
 
           <div class="calc-result-box">
             <div>
-              <div class="result-label" id="calcUnitCategory">Kapasitas Volume & Massa Benih</div>
+              <div style="font-size: 12px; color: var(--text-secondary);" id="calcUnitCategory">Kapasitas Volume & Massa Benih</div>
               <div style="font-size: 11px; color: var(--text-muted);" id="calcNotes">1 Solok ≈ 350 gram gabah (± 420 mL)</div>
             </div>
             <div class="result-val" id="calcResultDisplay">0.35 kg</div>
@@ -1420,11 +1712,17 @@
         <h3 id="modalTitle" style="margin-top: 8px;">Judul Dokumen</h3>
       </div>
       <div class="modal-body" id="modalBody"></div>
-      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center;">
-        <a id="modalDownloadBtn" class="btn-action btn-primary" href="#" download>
-          <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
-          <span>Unduh Berkas .Docx</span>
-        </a>
+      <div style="margin-top: 24px; padding-top: 16px; border-top: 1px solid var(--border); display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+        <div style="display: flex; gap: 8px;">
+          <button class="btn-action btn-primary" id="modalOpenFormBtn" onclick="openFormFromModal()">
+            <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+            <span>Isi Form Lapangan</span>
+          </button>
+          <a id="modalDownloadBtn" class="btn-action btn-secondary" href="#" download>
+            <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
+            <span>Unduh Template .Docx</span>
+          </a>
+        </div>
         <button class="btn-action btn-secondary" onclick="closeModal()">Tutup</button>
       </div>
     </div>
@@ -1443,7 +1741,7 @@
     </div>
   </footer>
 
-  <!-- SPA Router & Dynamic Data Engine -->
+  <!-- SPA Router, Dynamic Form Studio, & Export Controller -->
   <script>
     // 1. DATA 6 FASE
     const phasesData = [
@@ -1546,7 +1844,7 @@
       }
     ];
 
-    // 2. DATA 8 INSTRUMEN
+    // 2. DATA 8 INSTRUMEN BESERTA SKEMA FORMULIR
     const instrumentsData = [
       {
         id: "INST-01-ETNO",
@@ -1556,7 +1854,15 @@
         desc: "Panduan eksplorasi komprehensif 6 aktivitas matematis universal: berhitung, menempatkan, mengukur, merancang, bermain, dan menjelaskan.",
         features: ["18 Pertanyaan Kunci Berbasis Kasus", "Glosarium Leksikon Bilangan Kanayatn", "Protokol Basa-Basi Adat Sirih-Pinang"],
         file: "Instrumen Pendukung/Instrumen_01_Pedoman_Wawancara_Mendalam_Bishop.docx",
-        details: "Instrumen ini dirancang semi-terstruktur. Pewawancara menggali praktik hidup sehari-hari: penentuan jumlah benih per lubang tugal, pembacaan rasi Bintang Karang, satuan solok/gantang, hingga mitos sakral Pu'un Padi."
+        details: "Instrumen ini dirancang semi-terstruktur. Pewawancara menggali praktik hidup sehari-hari: penentuan jumlah benih per lubang tugal, pembacaan rasi Bintang Karang, satuan solok/gantang, hingga mitos sakral Pu'un Padi.",
+        formFields: [
+          { id: "f_counting", label: "1. Counting (Sistem Bilangan & Hitungan Benih)", type: "textarea", placeholder: "Catat sebutan angka Kanayatn, hitungan benih per lubang tugal (5-7 biji), ikatan rumpun..." },
+          { id: "f_locating", label: "2. Locating (Astronomi Bintang & Tata Ruang)", type: "textarea", placeholder: "Catat posisi rasi Bintang Karang (Orion) / Bintang Tiga, arah hadap ladang bukit, posisi dango..." },
+          { id: "f_measuring", label: "3. Measuring (Metrologi Tubuh & Takaran Volume)", type: "textarea", placeholder: "Catat satuan jengkal, depa, hasta, takaran solok, gantang, kaleng, taksiran tumpak..." },
+          { id: "f_designing", label: "4. Designing (Geometri Tugal, Lanjung, & Arsitektur)", type: "textarea", placeholder: "Catat bentuk silinder kerucut tugal, transisi prisma-silinder lanjung, tiang anti-tikus dango..." },
+          { id: "f_playing", label: "5. Playing (Permainan Tradisional & Logika Musiman)", type: "textarea", placeholder: "Catat permainan rakyat penjaga burung di dango, teka-teki logika, adu strategi..." },
+          { id: "f_explaining", label: "6. Explaining (Mitos Pu'un Padi, Pamali, & Babari)", type: "textarea", placeholder: "Catat mitos asal-usul padi Ne' Baruakng Kulup, aturan pamali/pantang, kesetaraan waktu Babari..." }
+        ]
       },
       {
         id: "INST-02-ETNO",
@@ -1566,7 +1872,12 @@
         desc: "Format catatan lapangan dua kolom model Spradley untuk mendokumentasikan aksi fisik, ritme gerakan menugal, dan prosesi ritual.",
         features: ["Format Catatan Deskriptif vs Reflektif", "Matriks 9 Tahapan Siklus Padi Lengkap", "Checklist Koordinat GPS & Cuaca"],
         file: "Instrumen Pendukung/Instrumen_02_Lembar_Observasi_Etnografis_Siklus_Padi.docx",
-        details: "Mencakup panduan pengamatan untuk 9 fase: Ngalantak/Milih Ulayat, Nebas, Nebang, Nunu/Bakar Lahan, Nugal/Tanam, Mabau/Siang Rumput, Ngetam/Panen, Naik Dango, dan Gotong Royong Babari."
+        details: "Mencakup panduan pengamatan untuk 9 fase: Ngalantak/Milih Ulayat, Nebas, Nebang, Nunu/Bakar Lahan, Nugal/Tanam, Mabau/Siang Rumput, Ngetam/Panen, Naik Dango, dan Gotong Royong Babari.",
+        formFields: [
+          { id: "f_tahap_ladang", label: "Tahapan Siklus Ladang yang Diamati", type: "select", options: ["1. Ngalantak / Milih Ulayat & Bintang", "2. Nebas (Menebas Semak)", "3. Nebang (Menebang Pohon)", "4. Nunu / Nguru (Membakar Lahan)", "5. Nugal / Nandur (Menanam Benih)", "6. Mabau / Ngiut (Menyiang Rumput)", "7. Ngetam / Ngayau (Memanen Padi)", "8. Nurutnkan Padi / Naik Dango", "9. Babari (Gotong Royong Komunal)"] },
+          { id: "f_catatan_deskriptif", label: "Catatan Deskriptif Faktual (Apa yang Dilihat & Didengar)", type: "textarea", placeholder: "Deskripsikan gerakan fisik petani, interaksi, perkataan, posisi alat, ritus..." },
+          { id: "f_memo_analitis", label: "Memo Analitis Etnomatematika (Konsep Bishop & D'Ambrosio)", type: "textarea", placeholder: "Analisis konsep matematika implisit: simetri, estimasi waktu, sudut, proporsi..." }
+        ]
       },
       {
         id: "INST-03-ETNO",
@@ -1576,7 +1887,12 @@
         desc: "Instrumen pengukuran kuantitatif untuk mengonversi satuan ukuran pribumi ke standar metrik internasional (SI) dan geometri alat.",
         features: ["Tabel Konversi Satuan SI Empiris", "Lembar Morfometri Tugal, Lanjung, Takin", "Analisis Simetri Anyaman (Tesselation)"],
         file: "Instrumen Pendukung/Instrumen_03_Inventarisasi_Metrologi_dan_Geometri_Artefak.docx",
-        details: "Mewajibkan peneliti mengukur minimal 3-5 sampel nyata per satuan ukur tradisional menggunakan timbangan gram analitik dan caliper digital. Dilengkapi lembar akuisisi artefak untuk pameran diseminasi."
+        details: "Mewajibkan peneliti mengukur minimal 3-5 sampel nyata per satuan ukur tradisional menggunakan timbangan gram analitik dan caliper digital. Dilengkapi lembar akuisisi artefak untuk pameran diseminasi.",
+        formFields: [
+          { id: "f_nama_artefak", label: "Nama Artefak / Satuan yang Diukur", type: "input", placeholder: "Contoh: Kayu Tugal Ulin / Keranjang Lanjung / Solok Bambu" },
+          { id: "f_dimensi_fisik", label: "Dimensi Fisik Terukur (Panjang / Diameter / Massa)", type: "input", placeholder: "Contoh: Tinggi 162 cm, Diameter 3.4 cm, Massa 420 gram" },
+          { id: "f_analisis_geometri", label: "Analisis Geometris & Rumus Matematika Relevan", type: "textarea", placeholder: "Bentuk: Tabung silinder + kerucut ujung runcing. Sudut taji: 35 derajat..." }
+        ]
       },
       {
         id: "INST-04-ETNO",
@@ -1586,7 +1902,12 @@
         desc: "Protokol fasilitasi Focus Group Discussion untuk mengeksplorasi persepsi antargenerasi dan sidang validasi komunitas (member checking).",
         features: ["Modul FGD Senior (≥50 th), Dewasa, & Pemuda", "Pedoman Sidang Validasi Bulan 8", "Format Berita Acara Kesepakatan Adat"],
         file: "Instrumen Pendukung/Instrumen_04_Panduan_FGD_dan_Validasi_Komunitas.docx",
-        details: "Memuat alur diskusi 90–120 menit per kelompok. Protokol khusus pada Bulan ke-8 menghadirkan Timanggong, Pasirah, dan Baliatn untuk memverifikasi draf monograf sebelum diterbitkan."
+        details: "Memuat alur diskusi 90–120 menit per kelompok. Protokol khusus pada Bulan ke-8 menghadirkan Timanggong, Pasirah, dan Baliatn untuk memverifikasi draf monograf sebelum diterbitkan.",
+        formFields: [
+          { id: "f_kelompok_fgd", label: "Kelompok FGD / Sidang", type: "select", options: ["FGD 1: Kelompok Tetua Adat (≥50 Tahun)", "FGD 2: Kelompok Petani Aktif (30-50 Tahun)", "FGD 3: Kelompok Pemuda Adat (17-30 Tahun)", "FGD 4: Sidang Validasi Komunitas (Member Checking Bulan 8)"] },
+          { id: "f_dinamika_diskusi", label: "Poin-Poin Utama Dinamika Diskusi", type: "textarea", placeholder: "Catat pandangan peserta, konsensus kelompok, perdebatan makna istilah..." },
+          { id: "f_koreksi_adat", label: "Catatan Koreksi / Masukan Para Tokoh Adat", type: "textarea", placeholder: "Catat koreksi ejaan bahasa Kanayatn atau batas pantang yang harus dipatuhi..." }
+        ]
       },
       {
         id: "INST-05-ETNO",
@@ -1596,7 +1917,11 @@
         desc: "Landasan etika perlindungan hak masyarakat adat dengan surat persetujuan narasumber dwibahasa (Indonesia & Dayak Kanayatn).",
         features: ["5 Prinsip Etika Riset Kebudayaan", "Form FPIC Dwibahasa Bersanding", "Klausul Pembatasan Materi Sakral/Rahasia"],
         file: "Instrumen Pendukung/Instrumen_05_Protokol_Etika_Adat_dan_FPIC_Dwibahasa.docx",
-        details: "Menjamin bahwa hak kekayaan intelektual komunal (KIK) tetap milik Dayak Kanayatn. Memuat klausul tertutup agar mantra sakral tersimpan khusus di lembaga adat dan tidak diumbar sembarangan."
+        details: "Menjamin bahwa hak kekayaan intelektual komunal (KIK) tetap milik Dayak Kanayatn. Memuat klausul tertutup agar mantra sakral tersimpan khusus di lembaga adat dan tidak diumbar sembarangan.",
+        formFields: [
+          { id: "f_persetujuan_rekam", label: "Izin Dokumentasi yang Diberikan", type: "select", options: ["Wawancara Audio + Foto + Video 4K (Lengkap)", "Hanya Wawancara Audio & Catatan Teks", "Wawancara Anonim (Nama Disamarkan)"] },
+          { id: "f_batasan_sakral", label: "Batasan Khusus Materi Sakral / Pantang", type: "textarea", placeholder: "Tuliskan bagian mantra/doa yang TIDAK BOLEH dipublikasikan dan wajib diarsipkan tertutup..." }
+        ]
       },
       {
         id: "INST-06-ETNO",
@@ -1606,7 +1931,12 @@
         desc: "Pencatatan nomor kartu memori, scene, timecode rekaman video 4K dan foto beresolusi tinggi sesuai standar Data Pokok Kebudayaan.",
         features: ["Format Logsheet Video 4K & Audio", "Metadata Standar Dublin Core Kemenbud", "Storyboard Video Dokumenter 15–20 Menit"],
         file: "Instrumen Pendukung/Instrumen_06_Logsheet_Audiovisual_dan_Kurasi_Arsip_Digital.docx",
-        details: "Membantu editor video merangkai narasi etnomatematika sinematik dan memastikan metadata arsip siap diserahkan ke sistem repositori kebudayaan nasional Kementerian Kebudayaan."
+        details: "Membantu editor video merangkai narasi etnomatematika sinematik dan memastikan metadata arsip siap diserahkan ke sistem repositori kebudayaan nasional Kementerian Kebudayaan.",
+        formFields: [
+          { id: "f_scene_take", label: "Kode Scene / Take / Roll Kartu", type: "input", placeholder: "Contoh: SC-02 / TK-01 / CARD-A (4K 60fps)" },
+          { id: "f_timecode", label: "Timecode & Latar Lokasi", type: "input", placeholder: "Contoh: TC 00:14:20 - Ladang Lereng Radakng Saham" },
+          { id: "f_deskripsi_aksi", label: "Deskripsi Aksi Visual & Makna Budaya", type: "textarea", placeholder: "Aksi: Petani menancapkan kayu tugal dan menabur benih secara sinkron dengan ritme..." }
+        ]
       },
       {
         id: "INST-07-ETNO",
@@ -1616,7 +1946,12 @@
         desc: "Buku harian auto-etnografis untuk merefleksikan posisi peneliti (outsider-insider), kendala budaya harian, dan temuan serendipitas.",
         features: ["Analisis Dinamika Emic vs Etic", "Evaluasi Harian Tim Tiap Malam", "Pencatatan Temuan Tak Terduga (Aha Moment)"],
         file: "Instrumen Pendukung/Instrumen_07_Jurnal_Refleksi_Harian_Etnografi.docx",
-        details: "Diisi setiap malam di Rumah Radakng Saham bersama asisten lokal untuk mendiskusikan apa yang berjalan baik hari ini dan rencana aksi esok pagi."
+        details: "Diisi setiap malam di Rumah Radakng Saham bersama asisten lokal untuk mendiskusikan apa yang berjalan baik hari ini dan rencana aksi esok pagi.",
+        formFields: [
+          { id: "f_ringkasan_hari", label: "Ringkasan Aktivitas Lapangan Hari Ini", type: "textarea", placeholder: "Siapa yang ditemui? Peristiwa budaya apa yang diobservasi hari ini?..." },
+          { id: "f_aha_moment", label: "Temuan Etnomatematika Menarik (Aha Moment)", type: "textarea", placeholder: "Temuan tak terduga yang membuka wawasan baru tentang matematika Kanayatn..." },
+          { id: "f_rencana_besok", label: "Rencana Tindak Lanjut Esok Hari", type: "textarea", placeholder: "Target informan berikutnya, instrumen yang akan digunakan..." }
+        ]
       },
       {
         id: "KATALOG-PANDUAN",
@@ -1626,7 +1961,11 @@
         desc: "Dokumen kompilasi master yang memuat SOP kunjungan, jadwal distribusi 10 bulan, direktori peran panitia, dan mitigasi darurat.",
         features: ["Matriks Distribusi Waktu 10 Bulan", "SOP Kunjungan ke Radakng Saham", "Direktori Peran 18 Personel Panitia"],
         file: "Instrumen Pendukung/Katalog_dan_Panduan_Operasional_Instrumen.docx",
-        details: "Panduan induk rujukan cepat bagi seluruh 18 panitia dan pelindung/penasihat kegiatan."
+        details: "Panduan induk rujukan cepat bagi seluruh 18 panitia dan pelindung/penasihat kegiatan.",
+        formFields: [
+          { id: "f_divisi_panitia", label: "Divisi / Seksi yang Bertugas", type: "select", options: ["Seksi Kajian Etnomatematika (Petrus Yanson, ST)", "Seksi Kemitraan Adat (Adira, S.Pd)", "Seksi Dokumentasi & Publikasi (Yeriko, S.Pd)", "Seksi Logistik & Perlengkapan"] },
+          { id: "f_catatan_sop", label: "Laporan Pelaksanaan SOP Lapangan", type: "textarea", placeholder: "Catatan kepatuhan SOP, koordinasi perangkat desa, dan evaluasi logistik..." }
+        ]
       }
     ];
 
@@ -1661,6 +2000,24 @@
       tumpak: { factor: 400.0, unit: "m² (Taksiran Luas Ladang)", cat: "Estimasi Luas Petak Lahan", note: "1 Tumpak berkisar 300-500 m² tergantung batas kontur alami lereng." }
     };
 
+    // ACTIVE STATE
+    let currentInstrumentForForm = instrumentsData[0];
+
+    // THEME TOGGLE CONTROLLER
+    function toggleTheme() {
+      const currentTheme = document.documentElement.getAttribute('data-theme') || 'light';
+      const newTheme = currentTheme === 'light' ? 'dark' : 'light';
+      document.documentElement.setAttribute('data-theme', newTheme);
+      document.body.setAttribute('data-theme', newTheme);
+      
+      const icon = document.getElementById('themeIcon');
+      if (newTheme === 'dark') {
+        icon.innerHTML = `<path d="M21 12.79A9 9 0 1111.21 3 7 7 0 0021 12.79z"/>`;
+      } else {
+        icon.innerHTML = `<circle cx="12" cy="12" r="5"/><line x1="12" y1="1" x2="12" y2="3"/><line x1="12" y1="21" x2="12" y2="23"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="1" y1="12" x2="3" y2="12"/><line x1="21" y1="12" x2="23" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>`;
+      }
+    }
+
     // SPA ROUTER CONTROLLER
     function switchView(targetViewId) {
       document.querySelectorAll('.spa-view').forEach(view => {
@@ -1680,17 +2037,15 @@
       }
     }
 
-    // Attach SPA tab buttons
     document.querySelectorAll('.spa-tab-btn').forEach(btn => {
       btn.addEventListener('click', () => {
         switchView(btn.dataset.view);
       });
     });
 
-    // Handle hash routing on load & popstate
     function handleHashRoute() {
       const hash = window.location.hash.replace('#', '') || 'alur';
-      const validViews = ['alur', 'instrumen', 'metrologi', 'glosarium', 'checklist'];
+      const validViews = ['alur', 'instrumen', 'form-studio', 'metrologi', 'glosarium', 'checklist'];
       if (validViews.includes(hash)) {
         switchView(hash);
       } else {
@@ -1699,6 +2054,226 @@
     }
 
     window.addEventListener('hashchange', handleHashRoute);
+
+    // ==========================================
+    // FORM STUDIO CONTROLLER (IN-APP FILLER)
+    // ==========================================
+    function openFormStudio(instId) {
+      const inst = instrumentsData.find(i => i.id === instId);
+      if (!inst) return;
+      currentInstrumentForForm = inst;
+
+      document.getElementById('formActiveCode').innerText = inst.id;
+      document.getElementById('formActiveTitle').innerText = `Formulir: ${inst.title}`;
+      document.getElementById('formActiveDesc').innerText = `Target informan: ${inst.target}. Isian form ini bersih segar saat dimuat ulang.`;
+      document.getElementById('statusBarDocName').innerText = `${inst.id} - ${inst.title}`;
+
+      // Render Dynamic Fields
+      const container = document.getElementById('dynamicFormSections');
+      let fieldsHtml = `
+        <div class="form-section-title">
+          <svg class="icon" viewBox="0 0 24 24"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/></svg>
+          Bagian B: Isian Pertanyaan Khusus (${inst.id})
+        </div>
+      `;
+
+      if (inst.formFields && inst.formFields.length > 0) {
+        inst.formFields.forEach(f => {
+          fieldsHtml += `<div class="form-field" style="margin-bottom: 14px;">`;
+          fieldsHtml += `<label for="${f.id}">${f.label}</label>`;
+          if (f.type === 'select') {
+            fieldsHtml += `<select id="${f.id}" class="form-select">`;
+            f.options.forEach(opt => {
+              fieldsHtml += `<option value="${opt}">${opt}</option>`;
+            });
+            fieldsHtml += `</select>`;
+          } else if (f.type === 'textarea') {
+            fieldsHtml += `<textarea id="${f.id}" class="form-textarea" placeholder="${f.placeholder || ''}"></textarea>`;
+          } else {
+            fieldsHtml += `<input type="text" id="${f.id}" class="form-input" placeholder="${f.placeholder || ''}">`;
+          }
+          fieldsHtml += `</div>`;
+        });
+      }
+
+      container.innerHTML = fieldsHtml;
+
+      // Reset form values whenever a form is opened or refreshed
+      resetFormInputs(false);
+      switchView('form-studio');
+    }
+
+    function openFormFromModal() {
+      const code = document.getElementById('modalCode').innerText;
+      closeModal();
+      openFormStudio(code);
+    }
+
+    // MANDATORY AUTO-RESET: Never store filled data in storage; reset clean on reload!
+    function resetFormInputs(showConfirm = false) {
+      if (showConfirm && !confirm("Kosongkan seluruh isian formulir saat ini?")) {
+        return;
+      }
+      const form = document.getElementById('interactiveFieldForm');
+      if (form) {
+        form.reset();
+        document.getElementById('formLokasi').value = "Rumah Radakng Saham, Dusun Saham, Sengah Temila";
+        // Set dynamic sign date
+        const today = new Date();
+        const options = { year: 'numeric', month: 'long', day: 'numeric' };
+        document.getElementById('signDateLocation').innerText = `Saham, ${today.toLocaleDateString('id-ID', options)}`;
+        document.getElementById('signInformanName').innerText = "( ................................................................ )";
+      }
+    }
+
+    // Update signature name on input
+    document.getElementById('formNamaNarasumber').addEventListener('input', (e) => {
+      const name = e.target.value.trim();
+      document.getElementById('signInformanName').innerText = name ? `( ${name} )` : "( ................................................................ )";
+    });
+
+    // PRINT FORM AS PDF
+    function printFormAsPDF() {
+      window.print();
+    }
+
+    // EXPORT FILLED FORM AS DOCX (Client-side native Word generation with fallback)
+    async function exportFilledFormDocx() {
+      const inst = currentInstrumentForForm;
+      const nama = document.getElementById('formNamaNarasumber').value.trim() || "Narasumber_Adat";
+      const gelar = document.getElementById('formGelarAdat').value;
+      const usia = document.getElementById('formUsiaGender').value.trim() || "-";
+      const lokasi = document.getElementById('formLokasi').value.trim() || "Rumah Radakng Saham";
+      const tanggal = document.getElementById('formTanggalSesi').value.trim() || "Tahun 2026";
+      const pencatat = document.getElementById('formPencatat').value.trim() || "Tim Peneliti Kemenbud 2026";
+      const kerahasiaan = document.getElementById('formStatusKerahasiaan').value;
+      const fpic = document.getElementById('formPersetujuanNarasumber').value;
+      const catatan = document.getElementById('formCatatanReflektif').value.trim() || "-";
+
+      // Collect dynamic fields
+      const dynamicAnswers = [];
+      if (inst.formFields) {
+        inst.formFields.forEach(f => {
+          const el = document.getElementById(f.id);
+          const val = el ? el.value.trim() : "-";
+          dynamicAnswers.push({ label: f.label, val: val || "-" });
+        });
+      }
+
+      // Check if docx library is loaded
+      if (window.docx) {
+        try {
+          const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, AlignmentType, HeadingLevel } = window.docx;
+          
+          const docParagraphs = [
+            new Paragraph({
+              alignment: AlignmentType.CENTER,
+              children: [
+                new TextRun({ text: "KEMENTERIAN KEBUDAYAAN REPUBLIK INDONESIA", bold: true, size: 22 }),
+                new TextRun({ text: "\nPROGRAM PEMANFAATAN HASIL KELOLA DANA ABADI KEBUDAYAAN 2026", bold: true, size: 20 }),
+                new TextRun({ text: `\n${inst.title} (${inst.id})`, bold: true, size: 24, color: "1F4E79" })
+              ]
+            }),
+            new Paragraph({ text: "" }),
+            new Paragraph({
+              children: [new TextRun({ text: "BAGIAN A: IDENTITAS INFORMAN & LOG LAPANGAN", bold: true, size: 20 })]
+            }),
+            new Paragraph({ text: `• Nama Narasumber: ${nama}` }),
+            new Paragraph({ text: `• Posisi / Jabatan Adat: ${gelar}` }),
+            new Paragraph({ text: `• Usia & Jenis Kelamin: ${usia}` }),
+            new Paragraph({ text: `• Lokasi Sesi: ${lokasi}` }),
+            new Paragraph({ text: `• Hari/Tanggal Sesi: ${tanggal}` }),
+            new Paragraph({ text: `• Pewawancara / Asisten: ${pencatat}` }),
+            new Paragraph({ text: "" }),
+            new Paragraph({
+              children: [new TextRun({ text: "BAGIAN B: DATA HASIL PENGISIAN LAPANGAN", bold: true, size: 20 })]
+            })
+          ];
+
+          dynamicAnswers.forEach(ans => {
+            docParagraphs.push(new Paragraph({
+              children: [new TextRun({ text: `\n${ans.label}`, bold: true })]
+            }));
+            docParagraphs.push(new Paragraph({ text: ans.val }));
+          });
+
+          docParagraphs.push(new Paragraph({ text: "" }));
+          docParagraphs.push(new Paragraph({
+            children: [new TextRun({ text: "BAGIAN C: STATUS ETIKA ADAT & CATATAN REFLEKTIF", bold: true, size: 20 })]
+          }));
+          docParagraphs.push(new Paragraph({ text: `• Status Kerahasiaan: ${kerahasiaan}` }));
+          docParagraphs.push(new Paragraph({ text: `• Status Persetujuan FPIC: ${fpic}` }));
+          docParagraphs.push(new Paragraph({ text: `• Catatan Reflektif: ${catatan}` }));
+          docParagraphs.push(new Paragraph({ text: "\n\nSaham, ......................................... 2026\nMengetahui:\nTim Peneliti Kemenbud 2026 / Narasumber Adat" }));
+
+          const doc = new Document({
+            sections: [{
+              properties: {},
+              children: docParagraphs
+            }]
+          });
+
+          const blob = await Packer.toBlob(doc);
+          const url = URL.createObjectURL(blob);
+          const a = document.createElement('a');
+          a.href = url;
+          a.download = `HASIL_${inst.id}_${nama.replace(/[^a-zA-Z0-9]/g, '_')}.docx`;
+          a.click();
+          URL.revokeObjectURL(url);
+          return;
+        } catch (err) {
+          console.warn("Docx.js generator error, falling back to Word-compatible export:", err);
+        }
+      }
+
+      // Offline / Fallback: Word XML/HTML format that Microsoft Word natively opens
+      let htmlDoc = `
+        <html xmlns:o='urn:schemas-microsoft-com:office:office' xmlns:w='urn:schemas-microsoft-com:office:word' xmlns='http://www.w3.org/TR/REC-html40'>
+        <head><meta charset='utf-8'><title>${inst.id}</title>
+        <style>body{font-family:Arial,sans-serif;font-size:11pt;line-height:1.5;} h2{font-size:14pt;text-align:center;} .kop{text-align:center;font-weight:bold;margin-bottom:20px;border-bottom:2px solid #000;padding-bottom:10px;}</style>
+        </head><body>
+        <div class='kop'>
+          KEMENTERIAN KEBUDAYAAN REPUBLIK INDONESIA<br>
+          PROGRAM PEMANFAATAN HASIL KELOLA DANA ABADI KEBUDAYAAN TAHUN 2026<br>
+          <span style='font-size:13pt;color:#1F4E79;'>${inst.title} (${inst.id})</span>
+        </div>
+        <h3>A. IDENTITAS INFORMAN</h3>
+        <p><b>Nama Narasumber:</b> ${nama}<br>
+        <b>Gelar / Posisi Adat:</b> ${gelar}<br>
+        <b>Usia & Gender:</b> ${usia}<br>
+        <b>Lokasi:</b> ${lokasi}<br>
+        <b>Tanggal Sesi:</b> ${tanggal}<br>
+        <b>Pewawancara / Asisten:</b> ${pencatat}</p>
+        <h3>B. HASIL PENGISIAN LAPANGAN</h3>
+      `;
+
+      dynamicAnswers.forEach(ans => {
+        htmlDoc += `<p><b>${ans.label}</b><br>${ans.val.replace(/\n/g, '<br>')}</p>`;
+      });
+
+      htmlDoc += `
+        <h3>C. ETIKA ADAT & REFLEKSI</h3>
+        <p><b>Status Akses:</b> ${kerahasiaan}<br>
+        <b>Persetujuan FPIC:</b> ${fpic}<br>
+        <b>Catatan Reflektif:</b> ${catatan.replace(/\n/g, '<br>')}</p>
+        <br><br>
+        <table width='100%' style='text-align:center;'>
+          <tr>
+            <td>Mengetahui,<br><b>Tim Peneliti Kemenbud 2026</b><br><br><br><br>( Dr. Siti Suprihatiningsih, M.Pd. )</td>
+            <td>Saham, .............................. 2026<br><b>Narasumber Adat</b><br><br><br><br>( ${nama} )</td>
+          </tr>
+        </table>
+        </body></html>
+      `;
+
+      const blob = new Blob(['\ufeff' + htmlDoc], { type: 'application/msword' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = `HASIL_${inst.id}_${nama.replace(/[^a-zA-Z0-9]/g, '_')}.doc`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
 
     // RENDER STEPPER
     function renderStepper() {
@@ -1729,7 +2304,7 @@
               <svg class="icon" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 14 14"/></svg>
               ${p.time} • ${p.badge}
             </div>
-            <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 700; color: #ffffff; margin-bottom: 10px;">${p.title}</h3>
+            <h3 style="font-family: var(--font-display); font-size: 22px; font-weight: 700; color: var(--text-primary); margin-bottom: 10px;">${p.title}</h3>
             <p style="font-size: 14px; color: var(--text-secondary); line-height: 1.6; margin-bottom: 20px;">${p.desc}</p>
 
             <h4 style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); text-transform: uppercase; margin-bottom: 10px; letter-spacing: 0.05em;">Aktivitas Inti Lapangan:</h4>
@@ -1754,7 +2329,7 @@
             </div>
             <div class="info-group">
               <h4><svg class="icon" viewBox="0 0 24 24"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg> Potensi Risiko & Mitigasi</h4>
-              <p style="color: #f87171; font-size: 12.5px;">${p.risks}</p>
+              <p style="color: #dc2626; font-size: 12.5px;">${p.risks}</p>
             </div>
           </div>
         </div>
@@ -1782,13 +2357,17 @@
           </div>
 
           <div class="inst-actions">
-            <a class="btn-card btn-card-primary" href="${inst.file}" download>
+            <button class="btn-card btn-card-primary" onclick="openFormStudio('${inst.id}')">
+              <svg class="icon" viewBox="0 0 24 24"><path d="M12 20h9M16.5 3.5a2.121 2.121 0 013 3L7 19l-4 1 1-4L16.5 3.5z"/></svg>
+              Isi Form Ini
+            </button>
+            <a class="btn-card btn-card-secondary" href="${inst.file}" download>
               <svg class="icon" viewBox="0 0 24 24"><path d="M21 15v4a2 2 0 01-2 2H5a2 2 0 01-2-2v-4M7 10l5 5 5-5M12 15V3"/></svg>
               Unduh .Docx
             </a>
             <button class="btn-card btn-card-secondary" onclick="openModal('${inst.id}')">
               <svg class="icon" viewBox="0 0 24 24"><path d="M1 12s4-8 11-8 11 8 11 8-4 8-11 8-11-8-11-8z"/><circle cx="12" cy="12" r="3"/></svg>
-              Pratinjau
+              Detail
             </button>
           </div>
         </div>
@@ -1892,7 +2471,7 @@
           <h4 style="font-family: var(--font-mono); font-size: 11px; color: var(--accent); margin-bottom: 8px;">PANDUAN OPERASIONAL LAPANGAN:</h4>
           <p style="font-size: 13px; line-height: 1.6;">${inst.details}</p>
         </div>
-        <p style="font-size: 12px; color: var(--text-muted);">Berkas ini berformat Microsoft Word (.docx) lengkap dengan kop Kementerian Kebudayaan RI dan tabel data primer.</p>
+        <p style="font-size: 12px; color: var(--text-muted);">Anda dapat langsung mengisi formulir instrumen ini secara digital atau mengunduh template Microsoft Word (.docx).</p>
       `;
       document.getElementById('detailModal').classList.add('active');
     }
@@ -1901,14 +2480,22 @@
       document.getElementById('detailModal').classList.remove('active');
     }
 
-    // INITIALIZATION
+    // INITIALIZATION ON WINDOW LOAD
     window.addEventListener('DOMContentLoaded', () => {
+      // 1. Ensure Light Mode by default
+      document.documentElement.setAttribute('data-theme', 'light');
+      document.body.setAttribute('data-theme', 'light');
+
+      // 2. Render all dynamic components
       renderStepper();
       renderInstruments();
       renderGlossary();
       calculateMetrology();
       loadChecklist();
       handleHashRoute();
+
+      // 3. MANDATORY: Reset all interactive form inputs on every page load/reload!
+      resetFormInputs(false);
     });
   </script>
 </body>
