@@ -19,3 +19,6 @@ desktop.ini
 !*.docx
 !*.md
 !*.html
+
+# Microsoft Word lock files
+~$*
