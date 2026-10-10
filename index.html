@@ -746,21 +746,34 @@
     .form-field label {
       font-size: 12px;
       font-family: var(--font-mono);
-      font-weight: 600;
-      color: var(--text-secondary);
+      font-weight: 700;
+      color: var(--text-primary);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
     .form-input, .form-textarea, .form-select {
-      background: var(--surface-raised);
-      border: 1px solid var(--border-strong);
+      background: var(--surface);
+      border: 1.5px solid var(--border-strong);
       color: var(--text-primary);
-      padding: 10px 14px;
+      padding: 11px 14px;
       border-radius: var(--radius-sm);
       font-size: 13.5px;
       font-family: var(--font-body);
       outline: none;
       transition: all var(--duration-fast);
       width: 100%;
+      min-height: 44px;
+    }
+
+    [data-theme="light"] .form-input,
+    [data-theme="light"] .form-textarea,
+    [data-theme="light"] .form-select {
+      background: #ffffff;
+      border: 1.5px solid #cbd5e1;
+      color: #0f172a;
+      box-shadow: 0 1px 2px rgba(0, 0, 0, 0.04);
     }
 
     .form-input:focus, .form-textarea:focus, .form-select:focus {
@@ -768,10 +781,37 @@
       box-shadow: 0 0 0 3px var(--accent-subtle);
     }
 
+    [data-theme="light"] .form-input:focus,
+    [data-theme="light"] .form-textarea:focus,
+    [data-theme="light"] .form-select:focus {
+      border-color: #d97706;
+      box-shadow: 0 0 0 3px rgba(217, 119, 6, 0.18);
+    }
+
     .form-textarea {
-      min-height: 80px;
+      min-height: 90px;
       resize: vertical;
-      line-height: 1.5;
+      line-height: 1.55;
+    }
+
+    .btn-field-helper {
+      font-size: 10.5px;
+      font-family: var(--font-mono);
+      color: var(--accent);
+      background: var(--accent-subtle);
+      border: 1px solid var(--border-accent);
+      padding: 2px 7px;
+      border-radius: var(--radius-sm);
+      cursor: pointer;
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      transition: all var(--duration-fast);
+    }
+
+    .btn-field-helper:hover {
+      background: var(--accent);
+      color: var(--text-inverse);
     }
 
     .form-interactive-table {
@@ -1166,16 +1206,22 @@
     }
 
     /* ===================================================
-       PRINT FORMATTING (@media print)
+       PRINT FORMATTING (@media print & @page)
        =================================================== */
+    @page {
+      size: A4 portrait;
+      margin: 15mm 15mm 20mm 15mm;
+    }
+
     @media print {
       body {
         background: #ffffff !important;
         color: #000000 !important;
-        font-size: 11pt !important;
+        font-size: 10.5pt !important;
       }
       header.app-header, .context-bar, .spa-nav, .btn-action, .modal-overlay, 
-      .form-action-bar, .filter-tabs, .inst-actions, .stepper-nav, .btn-theme-toggle {
+      .form-action-bar, .filter-tabs, .inst-actions, .stepper-nav, .btn-theme-toggle,
+      .btn-field-helper, .app-footer, .btn-card {
         display: none !important;
       }
       .spa-view {
@@ -1188,23 +1234,46 @@
         border: none !important;
         box-shadow: none !important;
         padding: 0 !important;
+        margin: 0 !important;
       }
       .form-official-header {
         border-bottom: 2px solid #000000 !important;
-        margin-bottom: 20px !important;
+        margin-bottom: 18px !important;
+        page-break-after: avoid;
+      }
+      .form-section-title {
+        color: #000000 !important;
+        font-size: 11pt !important;
+        border-bottom: 1px solid #666666 !important;
+        padding-bottom: 4px !important;
+        page-break-after: avoid;
+        break-after: avoid;
+      }
+      .form-field, .form-grid-2, .form-grid-3, .form-interactive-table {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
       }
       .form-input, .form-textarea, .form-select {
-        border: 1px solid #777777 !important;
+        border: 1px solid #555555 !important;
         background: #ffffff !important;
         color: #000000 !important;
-        font-size: 10pt !important;
+        font-size: 9.5pt !important;
+        min-height: auto !important;
+        padding: 6px 10px !important;
       }
       .form-interactive-table th, .form-interactive-table td {
-        border: 1px solid #444444 !important;
+        border: 1px solid #333333 !important;
         color: #000000 !important;
+        padding: 6px 8px !important;
       }
       .form-interactive-table th {
-        background: #eeeeee !important;
+        background: #f0f0f0 !important;
+        font-weight: bold !important;
+      }
+      .form-signatures-box {
+        page-break-inside: avoid !important;
+        break-inside: avoid !important;
+        margin-top: 24px !important;
       }
     }
 
@@ -1373,13 +1442,21 @@
     <!-- VIEW 2B: FORM STUDIO (INTERACTIVE INSTRUMENT FILLER) -->
     <section id="view-form-studio" class="spa-view" role="tabpanel">
       <div class="view-header">
-        <div class="view-title-group">
-          <div style="display: flex; align-items: center; gap: 10px; margin-bottom: 6px;">
-            <button class="btn-card btn-card-secondary" onclick="switchView('instrumen')">
-              <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
-              Kembali ke Daftar Instrumen
-            </button>
-            <span class="badge-pill" id="formActiveCode">INST-01-ETNO</span>
+        <div class="view-title-group" style="width: 100%;">
+          <div style="display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 12px; margin-bottom: 8px;">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <button class="btn-card btn-card-secondary" onclick="switchView('instrumen')" style="margin: 0; padding: 7px 14px;">
+                <svg class="icon" viewBox="0 0 24 24"><line x1="19" y1="12" x2="5" y2="12"/><polyline points="12 19 5 12 12 5"/></svg>
+                Kembali ke Daftar
+              </button>
+              <span class="badge-pill" id="formActiveCode">INST-01-ETNO</span>
+            </div>
+            <div style="display: flex; align-items: center; gap: 8px;">
+              <label for="quickFormSwitcher" style="font-size: 12px; font-family: var(--font-mono); font-weight: 600; color: var(--text-secondary); margin: 0;">Ganti Form Cepat:</label>
+              <select id="quickFormSwitcher" class="form-select" style="width: auto; padding: 6px 12px; min-height: 36px; font-size: 12px;" onchange="openFormStudio(this.value)">
+                <!-- Diisi otomatis oleh JavaScript -->
+              </select>
+            </div>
           </div>
           <h2 id="formActiveTitle">Pengisian Formulir Lapangan</h2>
           <p id="formActiveDesc">Silakan isi formulir di bawah ini saat sesi lapangan. Form akan selalu kosong bersih setiap kali halaman dimuat ulang (*reload*).</p>
@@ -1429,11 +1506,17 @@
 
           <div class="form-grid-3">
             <div class="form-field">
-              <label for="formLokasi">Lokasi / Kampung di Saham</label>
+              <label for="formLokasi">
+                <span>Lokasi / Titik Lapangan</span>
+                <button type="button" class="btn-field-helper" onclick="fillCurrentGPS()" title="Ambil koordinat GPS perangkat saat ini">📍 Kunci GPS</button>
+              </label>
               <input type="text" id="formLokasi" class="form-input" value="Rumah Radakng Saham, Dusun Saham, Sengah Temila">
             </div>
             <div class="form-field">
-              <label for="formTanggalSesi">Hari, Tanggal & Waktu Sesi</label>
+              <label for="formTanggalSesi">
+                <span>Hari, Tanggal & Waktu Sesi</span>
+                <button type="button" class="btn-field-helper" onclick="fillCurrentDateTime()" title="Isi dengan tanggal dan jam sekarang">⏱️ Waktu Sekarang</button>
+              </label>
               <input type="text" id="formTanggalSesi" class="form-input" placeholder="Contoh: Rabu, 15 Juli 2026 - Pukul 09:30 WIB">
             </div>
             <div class="form-field">
@@ -2058,6 +2141,14 @@
     // ==========================================
     // FORM STUDIO CONTROLLER (IN-APP FILLER)
     // ==========================================
+    function populateQuickSwitcher() {
+      const select = document.getElementById('quickFormSwitcher');
+      if (!select) return;
+      select.innerHTML = instrumentsData.map(inst => `
+        <option value="${inst.id}">${inst.id}: ${inst.title.substring(0, 32)}...</option>
+      `).join('');
+    }
+
     function openFormStudio(instId) {
       const inst = instrumentsData.find(i => i.id === instId);
       if (!inst) return;
@@ -2067,6 +2158,10 @@
       document.getElementById('formActiveTitle').innerText = `Formulir: ${inst.title}`;
       document.getElementById('formActiveDesc').innerText = `Target informan: ${inst.target}. Isian form ini bersih segar saat dimuat ulang.`;
       document.getElementById('statusBarDocName').innerText = `${inst.id} - ${inst.title}`;
+
+      // Sinkronkan quick switcher dropdown
+      const switcher = document.getElementById('quickFormSwitcher');
+      if (switcher) switcher.value = inst.id;
 
       // Render Dynamic Fields
       const container = document.getElementById('dynamicFormSections');
@@ -2125,6 +2220,69 @@
         document.getElementById('signInformanName').innerText = "( ................................................................ )";
       }
     }
+
+    // HELPER: Auto-fill GPS Coordinates to Location Input
+    function fillCurrentGPS() {
+      const lokasiInput = document.getElementById('formLokasi');
+      if (!navigator.geolocation) {
+        alert("Fitur Geolocation tidak didukung oleh peramban ini.");
+        return;
+      }
+      const targetBtn = window.event?.currentTarget;
+      const originalText = targetBtn ? targetBtn.innerText : '';
+      if (targetBtn) targetBtn.innerText = "⏳ Membaca GPS...";
+
+      navigator.geolocation.getCurrentPosition(
+        (pos) => {
+          const lat = pos.coords.latitude.toFixed(5);
+          const lng = pos.coords.longitude.toFixed(5);
+          const acc = Math.round(pos.coords.accuracy);
+          const base = lokasiInput.value.split(" (GPS:")[0].trim();
+          lokasiInput.value = `${base} (GPS: ${lat}, ${lng} ±${acc}m)`;
+          if (targetBtn) targetBtn.innerText = "✓ GPS Terkunci";
+          setTimeout(() => { if (targetBtn) targetBtn.innerText = originalText; }, 2500);
+        },
+        (err) => {
+          if (targetBtn) targetBtn.innerText = originalText;
+          alert("Tidak dapat mengambil GPS: " + (err.message || "Izin lokasi belum diberikan."));
+        },
+        { enableHighAccuracy: true, timeout: 10000, maximumAge: 60000 }
+      );
+    }
+
+    // HELPER: Auto-fill Current Date and Time
+    function fillCurrentDateTime() {
+      const input = document.getElementById('formTanggalSesi');
+      const now = new Date();
+      const days = ['Minggu', 'Senin', 'Selasa', 'Rabu', 'Kamis', 'Jumat', 'Sabtu'];
+      const months = ['Januari', 'Februari', 'Maret', 'April', 'Mei', 'Juni', 'Juli', 'Agustus', 'September', 'Oktober', 'November', 'Desember'];
+      const dayName = days[now.getDay()];
+      const date = now.getDate();
+      const monthName = months[now.getMonth()];
+      const year = now.getFullYear();
+      const hours = String(now.getHours()).padStart(2, '0');
+      const minutes = String(now.getMinutes()).padStart(2, '0');
+      input.value = `${dayName}, ${date} ${monthName} ${year} — Pukul ${hours}:${minutes} WIB`;
+    }
+
+    // UNSAVED CHANGES GUARD: Cegah kehilangan data saat refresh/tutup tab
+    window.addEventListener('beforeunload', (e) => {
+      const form = document.getElementById('interactiveFieldForm');
+      if (!form) return;
+      let hasUnsavedData = false;
+      const textInputs = form.querySelectorAll('input[type="text"], textarea');
+      textInputs.forEach(input => {
+        if (input.id === 'formLokasi' && input.value.trim() === "Rumah Radakng Saham, Dusun Saham, Sengah Temila") return;
+        if (input.value && input.value.trim().length > 0) {
+          hasUnsavedData = true;
+        }
+      });
+      if (hasUnsavedData) {
+        e.preventDefault();
+        e.returnValue = 'Data isian instrumen belum diekspor atau dicetak. Anda yakin ingin memuat ulang halaman?';
+        return e.returnValue;
+      }
+    });
 
     // Update signature name on input
     document.getElementById('formNamaNarasumber').addEventListener('input', (e) => {
@@ -2492,6 +2650,7 @@
       renderGlossary();
       calculateMetrology();
       loadChecklist();
+      populateQuickSwitcher();
       handleHashRoute();
 
       // 3. MANDATORY: Reset all interactive form inputs on every page load/reload!
