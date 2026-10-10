@@ -1,6 +1,7 @@
 # Etnomatematika Siklus Padi Dayak Kanayatn di Landak: Eksplorasi Pengetahuan Tradisional dan Ritus Pertanian
 
 [![Kemenbud RI 2026](https://img.shields.io/badge/Program-Dana%20Abadi%20Kebudayaan%202026-orange.svg)](https://kebudayaan.kemdikbud.go.id/)
+[![Live Portal](https://img.shields.io/badge/Live%20Portal-GitHub%20Pages-2ea043.svg)](https://gustidash-cell.github.io/etnomatematika-dayak-kanayatn-kemenbud2026/)
 [![Kategori](https://img.shields.io/badge/Kategori-Karya%20Kreatif%20Inovatif%20(Layanan%20Media)-blue.svg)]()
 [![Lokasi](https://img.shields.io/badge/Lokus-Rumah%20Radakng%20Saham%2C%20Landak-green.svg)]()
 [![Design System](https://img.shields.io/badge/UI%2FUX-OpenDesign%20%C3%97%20Pro%20Max-gold.svg)](./DESIGN.md)
